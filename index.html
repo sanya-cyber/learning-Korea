@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하루 한국어 | 每日韓語互動練習</title>
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 載入 Google Fonts: Inter, Noto Sans TC (繁中), Noto Sans KR (韓文) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind 自訂設定 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '"Noto Sans TC"', 'sans-serif'],
+                        kr: ['"Noto Sans KR"', 'sans-serif'],
+                    },
+                    colors: {
+                        coral: {
+                            50: '#FFF1EE',
+                            100: '#FFE0D9',
+                            400: '#F47C6A',
+                            500: '#E85D4A',
+                            600: '#D44835',
+                        },
+                        ink: '#1A1D2E',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 清爽暖白簡約風格樣式 -->
+    <style>
+        body {
+            background-color: #F7F6F2;
+        }
+
+        /* 簡約卡片與容器樣式 */
+        .liquid-glass {
+            background-color: #FFFFFF;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 2px 10px -2px rgba(26, 29, 46, 0.05);
+        }
+
+        .liquid-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 2px 8px -2px rgba(26, 29, 46, 0.04);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+        .liquid-card:hover {
+            border-color: #D6D3D1;
+            box-shadow: 0 6px 16px -4px rgba(26, 29, 46, 0.08);
+        }
+
+        /* 已完成狀態卡片 */
+        .liquid-card-done {
+            background-color: #F0FDF4;
+            border-color: #86EFAC;
+        }
+
+        /* 內嵌淺灰底區塊（例句、文法、輸入框） */
+        .liquid-inset {
+            background-color: #F8F7F4;
+            border: 1px solid #E7E5E4;
+        }
+
+        /* 簡約膠囊按鈕 */
+        .liquid-pill {
+            background-color: #FFFFFF;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 1px 2px rgba(26, 29, 46, 0.04);
+            transition: all 0.15s ease;
+        }
+        .liquid-pill:hover {
+            background-color: #FAFAF9;
+            border-color: #D6D3D1;
+        }
+        .liquid-pill:active {
+            transform: scale(0.97);
+        }
+
+        /* 珊瑚紅主按鈕 */
+        .liquid-btn-coral {
+            background-color: #E85D4A;
+            border: 1px solid #D44835;
+            box-shadow: 0 2px 6px rgba(232, 93, 74, 0.25);
+            transition: all 0.15s ease;
+        }
+        .liquid-btn-coral:hover {
+            background-color: #D44835;
+        }
+        .liquid-btn-coral:active {
+            transform: scale(0.97);
+        }
+
+        /* 深藍黑主按鈕 */
+        .liquid-btn-ink {
+            background-color: #1A1D2E;
+            border: 1px solid #1A1D2E;
+            box-shadow: 0 2px 6px rgba(26, 29, 46, 0.2);
+            transition: all 0.15s ease;
+        }
+        .liquid-btn-ink:hover {
+            background-color: #2A2E45;
+        }
+        .liquid-btn-ink:active {
+            transform: scale(0.97);
+        }
+
+        /* 彈出視窗 */
+        .liquid-modal {
+            background-color: #FFFFFF;
+            border: 1px solid #E7E5E4;
+            box-shadow: 0 20px 50px -12px rgba(26, 29, 46, 0.22);
+        }
+
+        /* 隱藏橫向捲動條但保留滑動功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-ink font-sans antialiased min-h-screen flex flex-col selection:bg-coral-100 selection:text-coral-600 relative overflow-x-hidden">
+
+    <!-- 頂部簡約導覽列 -->
+    <header class="sticky top-0 z-30 bg-[#F7F6F2]/95 border-b border-stone-200/80 px-3 sm:px-6 py-2.5">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-2">
+            <!-- 品牌標題 -->
+            <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full liquid-btn-coral text-white flex items-center justify-center font-kr font-bold text-base sm:text-lg shrink-0">
+                    하
+                </div>
+                <div class="hidden xs:block sm:block truncate">
+                    <h1 class="text-sm sm:text-base font-bold text-ink leading-tight tracking-tight">하루 한국어</h1>
+                    <p class="text-[10px] sm:text-[11px] text-ink/60 font-medium">每日韓語練習</p>
+                </div>
+            </div>
+            <!-- 右側控制項：羅馬拼音開關、存讀檔與學習報告 -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <button id="toggle-roman-btn" onclick="toggleRomanization()" class="liquid-pill flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-ink/80 cursor-pointer">
+                    <span id="roman-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs"></span>
+                    <span class="hidden sm:inline">羅馬拼音</span>
+                    <span class="sm:hidden">拼音</span>
+                </button>
+                <button onclick="openBackupModal()" class="liquid-pill flex items-center gap-1 px-2.5 sm:px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-ink cursor-pointer">
+                    <span>💾</span>
+                    <span>存/讀檔</span>
+                </button>
+                <button onclick="openReportModal()" class="liquid-btn-coral flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white cursor-pointer">
+                    <span>📋</span>
+                    <span class="hidden sm:inline">學習報告</span>
+                    <span class="sm:hidden">報告</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+        <!-- 課程天數選擇列 (橫向捲動支援手機) -->
+        <section aria-label="選擇練習主題">
+            <div class="flex items-center justify-between mb-2.5 px-1">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-ink/60">選擇今日主題</h2>
+                <span id="overall-progress-text" class="liquid-pill text-xs font-semibold text-coral-600 px-3 py-1 rounded-full">
+                    今日進度 0%
+                </span>
+            </div>
+            <div id="day-selector" class="flex gap-2.5 overflow-x-auto pb-2 snap-x no-scrollbar">
+                <!-- 由 JS 動態生成天數按鈕 -->
+            </div>
+        </section>
+
+        <!-- 今日主題卡片 & 進度條 -->
+        <section class="liquid-glass rounded-3xl p-5 sm:p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 text-xs font-bold text-coral-600 bg-white/65 border border-white/80 px-3 py-1 rounded-full mb-2.5 shadow-2xs">
+                        <span id="day-badge">DAY 1</span>
+                        <span class="opacity-40">•</span>
+                        <span id="day-korean-title" class="font-kr">카페에서 주문하기</span>
+                    </div>
+                    <h2 id="day-title" class="text-xl sm:text-2xl font-bold text-ink tracking-tight">在咖啡廳點餐</h2>
+                    <p id="day-desc" class="text-sm text-ink/70 mt-1">學會用自然禮貌的韓語點飲料、表達內用或外帶。</p>
+                </div>
+                <!-- 進度顯示 -->
+                <div class="sm:text-right min-w-[160px] liquid-inset rounded-2xl p-3.5">
+                    <div class="flex items-center sm:justify-end justify-between text-xs text-ink/70 mb-2">
+                        <span class="font-medium">單字與口說完成度</span>
+                        <span id="progress-percent" class="font-bold text-ink ml-2">0%</span>
+                    </div>
+                    <div class="w-full h-2.5 bg-white/60 rounded-full overflow-hidden border border-white/70 p-0.5">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-coral-400 to-rose-500 rounded-full transition-all duration-500 shadow-xs" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分頁切換列 (支援手機 5 分頁輕鬆點擊) -->
+        <nav class="liquid-glass p-1.5 rounded-2xl grid grid-cols-5 gap-1 sm:gap-1.5" role="tablist">
+            <button id="tab-vocab" onclick="switchTab('vocab')" class="py-2 px-1 sm:px-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 cursor-pointer bg-ink text-white shadow-xs">
+                <span>📚</span>
+                <span>單字</span>
+                <span id="vocab-count-badge" class="hidden md:inline-block text-[11px] bg-white/20 px-1.5 py-0.5 rounded-full">7</span>
+            </button>
+            <button id="tab-speaking" onclick="switchTab('speaking')" class="py-2 px-1 sm:px-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 cursor-pointer text-ink/65 hover:text-ink hover:bg-stone-100">
+                <span>🗣️</span>
+                <span>口說</span>
+            </button>
+            <button id="tab-dictation" onclick="switchTab('dictation')" class="py-2 px-1 sm:px-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 cursor-pointer text-ink/65 hover:text-ink hover:bg-stone-100">
+                <span>🎧</span>
+                <span>聽寫</span>
+            </button>
+            <button id="tab-quiz" onclick="switchTab('quiz')" class="py-2 px-1 sm:px-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 cursor-pointer text-ink/65 hover:text-ink hover:bg-stone-100">
+                <span>✨</span>
+                <span>測驗</span>
+            </button>
+            <button id="tab-notebook" onclick="switchTab('notebook')" class="py-2 px-1 sm:px-2.5 rounded-xl text-[11px] sm:text-sm font-semibold transition flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-1.5 cursor-pointer text-ink/65 hover:text-ink hover:bg-stone-100">
+                <span>📝</span>
+                <span>筆記</span>
+                <span id="note-count-badge" class="hidden md:inline-block text-[11px] bg-ink/10 text-ink/80 px-1.5 py-0.5 rounded-full">0</span>
+            </button>
+        </nav>
+
+        <!-- 內容區塊 1：每日單字 -->
+        <section id="panel-vocab" class="space-y-4">
+            <div class="flex items-center justify-between text-xs sm:text-sm text-ink/70 px-1.5">
+                <span>點擊喇叭聆聽發音，熟記後可點擊右側勾選完成。</span>
+                <button onclick="playAllVocab()" class="liquid-pill text-coral-600 font-semibold px-3.5 py-1.5 rounded-full flex items-center gap-1.5 cursor-pointer shrink-0 ml-2">
+                    <span>🔊</span> <span>全部連播</span>
+                </button>
+            </div>
+            <div id="vocab-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- 由 JS 動態生成單字卡片 -->
+            </div>
+        </section>
+
+        <!-- 內容區塊 2：日常口說與文法 -->
+        <section id="panel-speaking" class="hidden space-y-6">
+            <div class="liquid-glass rounded-3xl p-4 sm:p-5 text-sm text-ink/85 flex items-start gap-3 border-amber-200/70">
+                <span class="w-9 h-9 rounded-2xl bg-amber-400/20 border border-amber-300/60 flex items-center justify-center text-lg shrink-0">🎯</span>
+                <div>
+                    <p class="font-bold text-ink">嚴格口說評分 & 錄音重播</p>
+                    <p class="text-ink/70 mt-0.5 leading-relaxed">點擊「🎙️ 錄音並評分」開口唸出韓語，系統會同步錄下你的聲音供<strong>重播與原音對比</strong>，並逐字抓出沒唸清楚的地方。<strong>綜合評分達 85 分以上</strong>才會核可通關喔！</p>
+                </div>
+            </div>
+            <div id="speaking-list" class="space-y-6">
+                <!-- 由 JS 動態生成口說與文法卡片 -->
+            </div>
+        </section>
+
+        <!-- 內容區塊 2.5：免打字！點選字塊聽寫練習 (句子 → 小短文) -->
+        <section id="panel-dictation" class="hidden space-y-5">
+            <!-- 關卡切換器 -->
+            <div class="liquid-glass rounded-2xl p-2 grid grid-cols-2 gap-2">
+                <button id="dict-mode-sentence" onclick="switchDictationMode('sentence')" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer bg-coral-500 text-white shadow-xs flex items-center justify-center gap-1.5">
+                    <span>🧩</span> <span>關卡 1：句子重組</span>
+                </button>
+                <button id="dict-mode-passage" onclick="switchDictationMode('passage')" class="py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer text-ink/70 hover:bg-stone-100 flex items-center justify-center gap-1.5">
+                    <span>📖</span> <span>關卡 2：小短文填空</span>
+                </button>
+            </div>
+            <!-- 聽寫互動主容器 -->
+            <div id="dictation-container" class="space-y-5">
+                <!-- 由 JS 動態生成聽寫練習介面 -->
+            </div>
+        </section>
+
+        <!-- 內容區塊 3：單字小測驗 -->
+        <section id="panel-quiz" class="hidden">
+            <div id="quiz-container" class="liquid-glass rounded-3xl p-6 sm:p-8 max-w-2xl mx-auto">
+                <!-- 由 JS 動態生成測驗介面 -->
+            </div>
+        </section>
+
+        <!-- 內容區塊 4：自訂韓語筆記本 -->
+        <section id="panel-notebook" class="hidden space-y-6">
+            <!-- 新增筆記表單 -->
+            <form id="note-form" onsubmit="addNote(event)" class="liquid-glass rounded-3xl p-5 sm:p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-ink">新增我的韓語筆記</h3>
+                        <p class="text-xs text-ink/65 mt-0.5">記下追星、看韓劇或旅遊時學到的新單字與句子，系統也能幫你朗讀喔！</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label for="note-kr" class="block text-xs font-semibold text-ink/75 mb-1.5">韓文單字或句子 <span class="text-coral-500">*</span></label>
+                        <input id="note-kr" type="text" required placeholder="例如：보고 싶어요" class="w-full px-4 py-2.5 rounded-2xl liquid-inset focus:bg-white/75 focus:outline-none focus:ring-2 focus:ring-coral-400/50 font-kr text-sm text-ink placeholder:text-ink/40 transition">
+                    </div>
+                    <div>
+                        <label for="note-zh" class="block text-xs font-semibold text-ink/75 mb-1.5">中文意思 <span class="text-coral-500">*</span></label>
+                        <input id="note-zh" type="text" required placeholder="例如：我想你" class="w-full px-4 py-2.5 rounded-2xl liquid-inset focus:bg-white/75 focus:outline-none focus:ring-2 focus:ring-coral-400/50 text-sm text-ink placeholder:text-ink/40 transition">
+                    </div>
+                </div>
+                <div>
+                    <label for="note-memo" class="block text-xs font-semibold text-ink/75 mb-1.5">文法補充 / 記憶小撇步（選填）</label>
+                    <textarea id="note-memo" rows="2" placeholder="例如：-고 싶다 表示「想要做某事」，보다(看) + 고 싶어요 = 好想見你" class="w-full px-4 py-2.5 rounded-2xl liquid-inset focus:bg-white/75 focus:outline-none focus:ring-2 focus:ring-coral-400/50 text-sm text-ink placeholder:text-ink/40 transition resize-none"></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="liquid-btn-coral px-5 py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer flex items-center gap-1.5">
+                        <span>＋</span> <span>儲存到筆記本</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- 筆記列表 -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between px-1.5">
+                    <h3 class="text-sm font-bold text-ink">已儲存的筆記</h3>
+                    <span id="note-list-count" class="text-xs font-semibold text-ink/60">共 0 則</span>
+                </div>
+                <div id="notebook-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 由 JS 動態生成筆記卡片 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="mt-10 py-6 text-center text-xs text-ink/50 font-medium">
+        <p>하루 한국어・每日韓語聽說練習・內建 Web Speech API 韓語發音與口說辨識</p>
+    </footer>
+
+    <!-- 學習進度報告彈出視窗 -->
+    <div id="report-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink/25 backdrop-blur-md">
+        <div class="liquid-modal rounded-3xl max-w-lg w-full overflow-hidden flex flex-col max-h-[85vh]">
+            <!-- 視窗標題 -->
+            <div class="px-5 py-4 border-b border-white/60 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-ink flex items-center gap-1.5">
+                        <span>📋</span> <span>我的韓語學習進度報告</span>
+                    </h3>
+                    <p class="text-xs text-ink/65 mt-0.5">複製下方報告貼給 AI，就能幫你量身打造下一週的新課程！</p>
+                </div>
+                <button onclick="closeReportModal()" aria-label="關閉視窗" class="liquid-pill w-8 h-8 rounded-full text-ink/60 hover:text-ink flex items-center justify-center cursor-pointer">
+                    ✕
+                </button>
+            </div>
+            <!-- 報告內容預覽 -->
+            <div class="p-5 overflow-y-auto flex-1">
+                <textarea id="report-textarea" readonly rows="12" class="w-full p-4 rounded-2xl liquid-inset text-xs sm:text-sm font-mono text-ink/85 leading-relaxed focus:outline-none focus:ring-2 focus:ring-coral-400/40 resize-none"></textarea>
+            </div>
+            <!-- 底部操作按鈕 -->
+            <div class="px-5 py-3.5 border-t border-white/60 flex items-center justify-end gap-2.5">
+                <button onclick="closeReportModal()" class="liquid-pill px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-ink/75 cursor-pointer">
+                    關閉
+                </button>
+                <button onclick="copyLearningReport()" class="liquid-btn-coral px-5 py-2 rounded-full text-xs sm:text-sm font-semibold text-white cursor-pointer flex items-center gap-1.5">
+                    <span>✨</span> <span>一鍵複製報告</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 存檔 / 讀檔碼彈出視窗 -->
+    <div id="backup-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink/25 backdrop-blur-md">
+        <div class="liquid-modal rounded-3xl max-w-lg w-full overflow-hidden flex flex-col max-h-[85vh]">
+            <!-- 視窗標題 -->
+            <div class="px-5 py-4 border-b border-white/60 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-ink flex items-center gap-1.5">
+                        <span>💾</span> <span>學習進度存檔 / 讀檔</span>
+                    </h3>
+                    <p class="text-xs text-ink/65 mt-0.5">不用外部網站！把存檔碼貼在 iPhone 備忘錄，下次貼回即可還原。</p>
+                </div>
+                <button onclick="closeBackupModal()" aria-label="關閉視窗" class="liquid-pill w-8 h-8 rounded-full text-ink/60 hover:text-ink flex items-center justify-center cursor-pointer">
+                    ✕
+                </button>
+            </div>
+
+            <!-- 內容區 -->
+            <div class="p-5 overflow-y-auto space-y-4">
+                <!-- 區塊 1：匯出存檔碼 -->
+                <div class="liquid-inset rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold text-ink">📤 備份目前進度（離開前記得複製）</h4>
+                    </div>
+                    <textarea id="export-code-input" readonly rows="3" class="w-full p-3 rounded-xl bg-white/75 border border-white/80 text-xs font-mono text-ink/80 break-all focus:outline-none resize-none"></textarea>
+                    <button onclick="copySaveCode()" class="liquid-btn-coral w-full py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5">
+                        <span>📋</span> <span>一鍵複製存檔碼</span>
+                    </button>
+                </div>
+
+                <!-- 區塊 2：匯入還原進度 -->
+                <div class="liquid-inset rounded-2xl p-4 space-y-3">
+                    <h4 class="text-sm font-bold text-ink">📥 還原之前的進度</h4>
+                    <p class="text-xs text-ink/70">把備忘錄裡存好的 <code class="bg-white/75 px-1.5 py-0.5 rounded-md text-ink font-semibold">HARU1-...</code> 存檔碼貼在下方：</p>
+                    <textarea id="import-code-input" rows="3" placeholder="在此貼上你的存檔碼..." class="w-full p-3 rounded-xl bg-white/75 border border-white/80 text-xs font-mono text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-coral-400/40 resize-none"></textarea>
+                    <button onclick="importSaveCode()" class="liquid-btn-ink w-full py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer flex items-center justify-center gap-1.5">
+                        <span>✨</span> <span>立即還原進度與筆記</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自訂液態玻璃 Toast 訊息提示盒 (絕不使用 alert) -->
+    <div id="toast-container" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-4">
+        <div id="toast-message" class="liquid-btn-ink text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 whitespace-nowrap">
+            <span>提示訊息</span>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. 課程資料庫 (5 天日常主題，含單字、口說、文法)
+        // ==========================================
+        const LESSONS = [
+            {
+                id: 'day1',
+                dayLabel: 'DAY 1',
+                title: '在咖啡廳點餐',
+                krTitle: '카페에서 주문하기',
+                desc: '學會用自然禮貌的韓語點飲料、表達內用或外帶。',
+                vocab: [
+                    { id: 'd1v1', kr: '아메리카노', roman: 'a-me-ri-ka-no', zh: '美式咖啡', pos: '名詞', exKr: '아메리카노 한 잔 주세요.', exZh: '請給我一杯美式咖啡。' },
+                    { id: 'd1v2', kr: '아이스', roman: 'a-i-seu', zh: '冰的 (Ice)', pos: '名詞', exKr: '아이스로 주세요.', exZh: '請做成冰的。' },
+                    { id: 'd1v3', kr: '따뜻한', roman: 'tta-tteut-han', zh: '溫熱的', pos: '形容詞', exKr: '따뜻한 라떼 있어요?', exZh: '有熱拿鐵嗎？' },
+                    { id: 'd1v4', kr: '포장', roman: 'po-jang', zh: '外帶 / 打包', pos: '名詞', exKr: '포장해 주세요.', exZh: '請幫我外帶。' },
+                    { id: 'd1v5', kr: '매장', roman: 'mae-jang', zh: '店內 / 內用', pos: '名詞', exKr: '매장에서 마실게요.', exZh: '我要在店裡喝。' },
+                    { id: 'd1v6', kr: '영수증', roman: 'yeong-su-jeung', zh: '收據', pos: '名詞', exKr: '영수증은 버려 주세요.', exZh: '收據請幫我丟掉。' },
+                    { id: 'd1v7', kr: '빨대', roman: 'ppal-dae', zh: '吸管', pos: '名詞', exKr: '빨대 하나만 주세요.', exZh: '請給我一根吸管。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd1s1',
+                        situation: '櫃檯點餐時',
+                        kr: '아이스 아메리카노 한 잔 주세요.',
+                        roman: 'a-i-seu a-me-ri-ka-no han jan ju-se-yo.',
+                        zh: '請給我一杯冰美式咖啡。',
+                        grammar: [
+                            {
+                                pattern: '名詞 + 주세요',
+                                meaning: '請給我……',
+                                explanation: '由動詞 주다（給）加上敬語祈使句 -(으)세요 構成，是點餐、購物時最萬用的禮貌表達。',
+                                examples: [
+                                    { kr: '물 좀 주세요.', zh: '請給我一點水。' },
+                                    { kr: '메뉴판 주세요.', zh: '請給我菜單。' }
+                                ]
+                            },
+                            {
+                                pattern: '固有數詞 + 量詞 (한 잔)',
+                                meaning: '一杯',
+                                explanation: '計算杯數使用固有數詞（하나, 둘, 셋, 넷）搭配量詞 잔（杯）。注意 1~4 接量詞時會變形：하나 → 한、둘 → 두、셋 → 세、넷 → 네。',
+                                examples: [
+                                    { kr: '커피 두 잔', zh: '兩杯咖啡' },
+                                    { kr: '주스 세 잔', zh: '三杯果汁' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd1s2',
+                        situation: '店員詢問內用或外帶時',
+                        kr: '여기서 마시고 갈게요.',
+                        roman: 'yeo-gi-seo ma-si-go gal-ge-yo.',
+                        zh: '我要在這裡喝完再走（內用）。',
+                        grammar: [
+                            {
+                                pattern: '場所 + 에서',
+                                meaning: '在某個地方（做某動作）',
+                                explanation: '當句子中有具體「動作」（如喝、吃、見面）發生在某地點時，地點後面必須加 에서。여기(這裡) + 에서 常縮寫為 여기서。',
+                                examples: [
+                                    { kr: '카페에서 공부해요.', zh: '在咖啡廳讀書。' }
+                                ]
+                            },
+                            {
+                                pattern: '動詞詞幹 + -고',
+                                meaning: '做完 A 之後接著做 B',
+                                explanation: '連接兩個先後發生的動作。마시다（喝）去 다 加 고，接 가다（走），意思是「喝完再走」。',
+                                examples: [
+                                    { kr: '밥을 먹고 자요.', zh: '吃完飯後睡覺。' }
+                                ]
+                            },
+                            {
+                                pattern: '動詞詞幹 + -(으)ㄹ게요',
+                                meaning: '我會……（表達個人決定或約定）',
+                                explanation: '用於向對方表明自己接下來的決定，語氣柔和親切。無尾音加 -ㄹ게요（가다 → 갈게요），有尾音加 -을게요（먹다 → 먹을게요）。',
+                                examples: [
+                                    { kr: '제가 계산할게요.', zh: '我來結帳吧。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd1s3',
+                        situation: '客製化飲料（不要加糖漿）',
+                        kr: '시럽은 빼 주세요.',
+                        roman: 'si-reo-beun ppae ju-se-yo.',
+                        zh: '糖漿請幫我去掉（不要加糖）。',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -아/어 주세요',
+                                meaning: '請幫我做……',
+                                explanation: '빼다（去掉/拿掉）加上 -어 주세요 縮寫為 빼 주세요，點餐時想去掉蔥、香菜、冰塊或糖漿都直接套用！',
+                                examples: [
+                                    { kr: '얼음은 조금만 넣어 주세요.', zh: '冰塊請幫我放少一點。' },
+                                    { kr: '파는 빼 주세요.', zh: '蔥請幫我去掉。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd1s4',
+                        situation: '詢問咖啡廳的洗手間位置',
+                        kr: '화장실이 어디예요?',
+                        roman: 'hwa-jang-si-ri eo-di-ye-yo?',
+                        zh: '請問洗手間在哪裡？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + 이/가 어디예요?',
+                                meaning: '……在哪裡？',
+                                explanation: '旅遊最必備的問地點句型！名詞有尾音加 이（화장실이），無尾音加 가（카페가）。',
+                                examples: [
+                                    { kr: '지하철역이 어디예요?', zh: '地鐵站在哪裡？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd1s5',
+                        situation: '結帳前確認是否可以刷卡',
+                        kr: '카드 결제 되나요?',
+                        roman: 'ka-deu gyeol-je doe-na-yo?',
+                        zh: '請問可以刷卡結帳嗎？',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -나요?',
+                                meaning: '……嗎？（柔和委婉的疑問）',
+                                explanation: '比單純的 -아/어요? 語氣更客氣自然！되다（可以/行得通）加上 -나요? 變成 되나요?，問「可不可以」超萬用。',
+                                examples: [
+                                    { kr: '애플페이 되나요?', zh: '請問可以用 Apple Pay 嗎？' },
+                                    { kr: '포장 되나요?', zh: '請問可以外帶嗎？' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day2',
+                dayLabel: 'DAY 2',
+                title: '餐廳用餐與請求',
+                krTitle: '식당에서 식사하기',
+                desc: '點菜時調整辣度、續加小菜，吃飯溝通沒煩惱。',
+                vocab: [
+                    { id: 'd2v1', kr: '메뉴판', roman: 'me-nyu-pan', zh: '菜單', pos: '名詞', exKr: '메뉴판 좀 보여 주세요.', exZh: '請給我看一下菜單。' },
+                    { id: 'd2v2', kr: '추천', roman: 'chu-cheon', zh: '推薦', pos: '名詞', exKr: '뭐가 제일 추천 메뉴예요?', exZh: '最推薦的餐點是什麼？' },
+                    { id: 'd2v3', kr: '맵다', roman: 'maep-da', zh: '辣', pos: '形容詞', exKr: '떡볶이가 조금 매워요.', exZh: '辣炒年糕有點辣。' },
+                    { id: 'd2v4', kr: '덜', roman: 'deol', zh: '少一點 / 沒那麼', pos: '副詞', exKr: '덜 맵게 해 주세요.', exZh: '請幫我做少辣一點。' },
+                    { id: 'd2v5', kr: '반찬', roman: 'ban-chan', zh: '小菜', pos: '名詞', exKr: '여기 반찬이 맛있어요.', exZh: '這裡的小菜很好吃。' },
+                    { id: 'd2v6', kr: '계산', roman: 'gye-san', zh: '結帳', pos: '名詞', exKr: '계산해 주세요.', exZh: '麻煩結帳。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd2s1',
+                        situation: '不敢吃太辣，想請廚房調整',
+                        kr: '안 맵게 해 주실 수 있어요?',
+                        roman: 'an maep-ge hae ju-sil su i-sseo-yo?',
+                        zh: '請問可以幫我做不辣的嗎？',
+                        grammar: [
+                            {
+                                pattern: '안 + 形容詞/動詞',
+                                meaning: '不……（否定表達）',
+                                explanation: '放在形容詞或動詞前面表示否定。안 맵다 就是「不辣」。',
+                                examples: [
+                                    { kr: '오늘은 안 추워요.', zh: '今天不冷。' }
+                                ]
+                            },
+                            {
+                                pattern: '形容詞詞幹 + -게 하다',
+                                meaning: '使……變成某種狀態',
+                                explanation: '將形容詞轉為副詞修飾 하다（做），表示「做成……的樣子」。맵게 하다 即「做辣」。',
+                                examples: [
+                                    { kr: '맛있게 드세요.', zh: '請美味地享用（請慢用）。' }
+                                ]
+                            },
+                            {
+                                pattern: '-아/어 주실 수 있어요?',
+                                meaning: '可以幫我……嗎？',
+                                explanation: '由「-아/어 주다（幫我做）」＋「-(으)시-（尊敬）」＋「-(으)ㄹ 수 있다（能夠）」組成，是非常客氣、禮貌的請求句型。',
+                                examples: [
+                                    { kr: '사진 좀 찍어 주실 수 있어요?', zh: '可以幫我拍張照嗎？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd2s2',
+                        situation: '在韓國餐廳想免費續加小菜',
+                        kr: '여기 반찬 좀 더 주세요.',
+                        roman: 'yeo-gi ban-chan jom deo ju-se-yo.',
+                        zh: '不好意思，這裡請再多給一點小菜。',
+                        grammar: [
+                            {
+                                pattern: '좀 (조금 的縮寫)',
+                                meaning: '稍微、一點（緩和語氣）',
+                                explanation: '在請求別人幫忙時加入 좀，能讓語氣聽起來不那麼直接或命令，變得更加委婉有禮貌。',
+                                examples: [
+                                    { kr: '잠시만 좀 기다려 주세요.', zh: '請稍微等一下。' }
+                                ]
+                            },
+                            {
+                                pattern: '더',
+                                meaning: '更、再多',
+                                explanation: '副詞，放在動詞前面表示增加數量或程度。더 주세요 就是「請再多給一些」。',
+                                examples: [
+                                    { kr: '밥 좀 더 주세요.', zh: '請再給我多一點飯。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd2s3',
+                        situation: '不知道點什麼，請店員推薦招牌菜',
+                        kr: '여기 제일 잘 나가는 메뉴가 뭐예요?',
+                        roman: 'yeo-gi je-il jal na-ga-neun me-nyu-ga mwo-ye-yo?',
+                        zh: '請問這裡賣得最好的餐點是什麼？',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -는 + 名詞',
+                                meaning: '正在……的 / 最……的（現在式修飾）',
+                                explanation: '잘 나가다 在餐廳或商店裡指「暢銷、賣得好」。加上 -는 修飾後面的 메뉴（菜單），就是「最暢銷的餐點」。',
+                                examples: [
+                                    { kr: '한국 사람들이 좋아하는 음식이에요.', zh: '是韓國人喜歡的食物。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd2s4',
+                        situation: '吃烤肉或湯麵時，向店員要圍裙',
+                        kr: '앞치마 하나만 주실 수 있어요?',
+                        roman: 'ap-chi-ma ha-na-man ju-sil su i-sseo-yo?',
+                        zh: '請問可以給我一件圍裙嗎？',
+                        grammar: [
+                            {
+                                pattern: '數量 + 만',
+                                meaning: '只要……（緩和請求語氣）',
+                                explanation: '在請求物品時加上 만（只/僅），雖然字面上是「只要一個」，但實際上是讓請求聽起來更客氣、不貪心的道地說法。',
+                                examples: [
+                                    { kr: '물티슈 하나만 주세요.', zh: '請給我一張濕紙巾。' },
+                                    { kr: '잠깐만 기다려 주세요.', zh: '請稍微等一下。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd2s5',
+                        situation: '吃完飯準備離開結帳',
+                        kr: '너무 잘 먹었습니다! 계산해 주세요.',
+                        roman: 'neo-mu jal meo-geot-seum-ni-da! gye-san-hae ju-se-yo.',
+                        zh: '真的很好吃（謝謝款待）！請幫我結帳。',
+                        grammar: [
+                            {
+                                pattern: '잘 먹었습니다',
+                                meaning: '謝謝款待（吃得很滿足）',
+                                explanation: '韓國用餐禮儀必備句！吃完離開或結帳時對老闆說這句，對方通常會非常開心。開動前則是說 잘 먹겠습니다。',
+                                examples: [
+                                    { kr: '정말 맛있게 잘 먹었습니다!', zh: '真的吃得非常美味！' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day3',
+                dayLabel: 'DAY 3',
+                title: '逛街購物與試穿',
+                krTitle: '쇼핑하고 입어 보기',
+                desc: '詢問價格、試穿衣服與尋找合適尺寸的實用對話。',
+                vocab: [
+                    { id: 'd3v1', kr: '얼마', roman: 'eol-ma', zh: '多少（錢）', pos: '代名詞', exKr: '이거 얼마예요?', exZh: '這個多少錢？' },
+                    { id: 'd3v2', kr: '입어 보다', roman: 'i-beo bo-da', zh: '試穿', pos: '動詞', exKr: '한번 입어 봐도 돼요?', exZh: '可以試穿一下嗎？' },
+                    { id: 'd3v3', kr: '사이즈', roman: 'sa-i-jeu', zh: '尺寸', pos: '名詞', exKr: '다른 사이즈 있어요?', exZh: '有其他尺寸嗎？' },
+                    { id: 'd3v4', kr: '색깔', roman: 'saek-kkal', zh: '顏色', pos: '名詞', exKr: '이 색깔이 예뻐요.', exZh: '這個顏色很漂亮。' },
+                    { id: 'd3v5', kr: '할인', roman: 'ha-rin', zh: '折扣 / 打折', pos: '名詞', exKr: '지금 할인 중이에요.', exZh: '現在正在打折中。' },
+                    { id: 'd3v6', kr: '카드', roman: 'ka-deu', zh: '信用卡 / 卡片', pos: '名詞', exKr: '카드로 결제할게요.', exZh: '我要刷卡結帳。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd3s1',
+                        situation: '在服飾店想試穿衣服',
+                        kr: '이거 한번 입어 봐도 돼요?',
+                        roman: 'i-geo han-beon i-beo bwa-do dwae-yo?',
+                        zh: '請問這個可以試穿一下嗎？',
+                        grammar: [
+                            {
+                                pattern: '動詞 + -아/어 보다',
+                                meaning: '嘗試做某事',
+                                explanation: '입다（穿）加上 -어 보다（試試看），就變成「試穿」。同理，먹어 보다 是「試吃」。',
+                                examples: [
+                                    { kr: '신어 봐도 돼요?', zh: '可以試穿（鞋子）嗎？' }
+                                ]
+                            },
+                            {
+                                pattern: '動詞 + -아/어도 돼요?',
+                                meaning: '可以……嗎？（請求許可）',
+                                explanation: '詢問對方是否允許做某件事。보다 + -아도 돼요 縮寫為 봐도 돼요?。',
+                                examples: [
+                                    { kr: '여기에 앉아도 돼요?', zh: '我可以坐這裡嗎？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd3s2',
+                        situation: '覺得衣服太小，詢問大一號的尺寸',
+                        kr: '조금 더 큰 사이즈 있어요?',
+                        roman: 'jo-geum deo keun sa-i-jeu i-sseo-yo?',
+                        zh: '請問有再大一點的尺寸嗎？',
+                        grammar: [
+                            {
+                                pattern: '形容詞詞幹 + -(으)ㄴ + 名詞',
+                                meaning: '……的（名詞修飾語）',
+                                explanation: '形容詞修飾後方的名詞時，無尾音加 -ㄴ，有尾音加 -은。크다（大）無尾音，變形為 큰（大的）來修飾 사이즈（尺寸）。',
+                                examples: [
+                                    { kr: '작은 사이즈 (작다 → 작은)', zh: '小的尺寸' },
+                                    { kr: '예쁜 옷 (예쁘다 → 예쁜)', zh: '漂亮的衣服' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd3s3',
+                        situation: '店員來招呼，想先自己慢慢逛',
+                        kr: '그냥 좀 구경할게요.',
+                        roman: 'geu-nyang jom gu-gyeong-hal-ge-yo.',
+                        zh: '我先隨便看看就好。',
+                        grammar: [
+                            {
+                                pattern: '그냥 + 動詞',
+                                meaning: '就只是…… / 隨便……',
+                                explanation: '逛街必備防身句！구경하다 是「逛、欣賞、看看」，加上 그냥 좀 與 -ㄹ게요，就能禮貌又不尷尬地婉拒推銷。',
+                                examples: [
+                                    { kr: '그냥 지나가다가 들어왔어요.', zh: '我只是剛好路過進來看看。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd3s4',
+                        situation: '架上是展示品，想請店員拿全新的',
+                        kr: '새 상품으로 주실 수 있어요?',
+                        roman: 'sae sang-pu-meu-ro ju-sil su i-sseo-yo?',
+                        zh: '請問可以給我全新的商品嗎？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + -(으)로 주세요',
+                                meaning: '請給我（換成）……的',
+                                explanation: '表示選擇某個款式、顏色或狀態。새 是「新的」，상품（商品）有尾音接 -으로，即「請給我新品」。',
+                                examples: [
+                                    { kr: '검은색으로 주세요.', zh: '請給我黑色的。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd3s5',
+                        situation: '決定購買並詢問是否支援退稅',
+                        kr: '이걸로 할게요. 택스 리펀 되나요?',
+                        roman: 'i-geol-lo hal-ge-yo. taek-seu ri-peon doe-na-yo?',
+                        zh: '我就買這個了。請問可以退稅嗎？',
+                        grammar: [
+                            {
+                                pattern: '이걸로 할게요',
+                                meaning: '我就決定要這個了',
+                                explanation: '이것으로（用這個）在口語幾乎都縮寫為 이걸로，搭配 할게요（我要做/選擇），點餐或買東西決定時超常用！',
+                                examples: [
+                                    { kr: '저걸로 할게요.', zh: '我要那個。' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day4',
+                dayLabel: 'DAY 4',
+                title: '交通與問路',
+                krTitle: '길 찾기 & 교통',
+                desc: '在韓國街頭問路、確認步行時間與方向指引。',
+                vocab: [
+                    { id: 'd4v1', kr: '지하철', roman: 'ji-ha-cheol', zh: '地鐵', pos: '名詞', exKr: '지하철을 타고 가요.', exZh: '搭地鐵去。' },
+                    { id: 'd4v2', kr: '출구', roman: 'chul-gu', zh: '出口', pos: '名詞', exKr: '3번 출구에서 만나요.', exZh: '在 3 號出口見面。' },
+                    { id: 'd4v3', kr: '오른쪽', roman: 'o-reun-jjok', zh: '右邊', pos: '名詞', exKr: '오른쪽으로 도세요.', exZh: '請往右轉。' },
+                    { id: 'd4v4', kr: '왼쪽', roman: 'oen-jjok', zh: '左邊', pos: '名詞', exKr: '왼쪽에 은행이 있어요.', exZh: '左邊有銀行。' },
+                    { id: 'd4v5', kr: '직진', roman: 'jik-jin', zh: '直走', pos: '名詞', exKr: '쭉 직진하세요.', exZh: '請一直直走。' },
+                    { id: 'd4v6', kr: '걸리다', roman: 'geol-li-da', zh: '花費（時間）', pos: '動詞', exKr: '10분쯤 걸려요.', exZh: '大概花 10 分鐘。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd4s1',
+                        situation: '詢問走路到地鐵站要多久',
+                        kr: '지하철역까지 걸어서 얼마나 걸려요?',
+                        roman: 'ji-ha-cheol-lyeok-kka-ji geo-reo-seo eol-ma-na geol-lyeo-yo?',
+                        zh: '走路到地鐵站要花多久時間？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + 까지',
+                                meaning: '到……（終點或期限）',
+                                explanation: '接在場所名詞後面表示目的地終點。지하철역까지 即「到地鐵站」。',
+                                examples: [
+                                    { kr: '명동까지 가 주세요.', zh: '請載我到明洞。' }
+                                ]
+                            },
+                            {
+                                pattern: '걸어서 (걷다 + -어서)',
+                                meaning: '走路去（表示方式）',
+                                explanation: '걷다（走路）是 ㄷ 不規則動詞，遇母音 ㄷ 變 ㄹ，成為 걸어서，表示「以走路的方式」。',
+                                examples: [
+                                    { kr: '집까지 걸어서 가요.', zh: '走路回家。' }
+                                ]
+                            },
+                            {
+                                pattern: '얼마나 걸려요?',
+                                meaning: '要花多久時間？',
+                                explanation: '얼마나（多長/多少）搭配 걸리다（花費時間），是問交通時間的固定實用句型。',
+                                examples: [
+                                    { kr: '공항까지 얼마나 걸려요?', zh: '到機場要多久？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd4s2',
+                        situation: '聽懂路人指路的方向',
+                        kr: '저기서 오른쪽으로 가세요.',
+                        roman: 'jeo-gi-seo o-reun-jjo-geu-ro ga-se-yo.',
+                        zh: '請從那裡往右邊走。',
+                        grammar: [
+                            {
+                                pattern: '方向名詞 + -(으)로',
+                                meaning: '往……方向',
+                                explanation: '表示移動的方向。名詞有尾音（ㄹ除外）加 -으로（오른쪽 → 오른쪽으로）；無尾音或尾音為 ㄹ 則加 -로。',
+                                examples: [
+                                    { kr: '앞으로 가세요.', zh: '請往前走。' }
+                                ]
+                            },
+                            {
+                                pattern: '動詞詞幹 + -(으)세요',
+                                meaning: '請……（禮貌祈使）',
+                                explanation: '客氣地指示或建議對方做某事。가다（走/去）去 다 加 세요 變成 가세요。',
+                                examples: [
+                                    { kr: '조심해서 가세요.', zh: '請小心慢走。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd4s3',
+                        situation: '搭計程車時告訴司機目的地',
+                        kr: '홍대입구역으로 가 주세요.',
+                        roman: 'hong-dae-ip-gu-yeo-geu-ro ga ju-se-yo.',
+                        zh: '請載我到弘大入口站。',
+                        grammar: [
+                            {
+                                pattern: '地點 + -(으)로 가 주세요',
+                                meaning: '請往（去）……',
+                                explanation: '搭計程車萬用句型！把前面的地點換成飯店或景點名稱即可。有尾音加 -으로（홍대입구역으로），無尾音加 -로（강남역 → 강남역으로 / 성수 → 성수로）。',
+                                examples: [
+                                    { kr: '이 주소로 가 주세요.', zh: '請載我到這個地址。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd4s4',
+                        situation: '搭公車或地鐵時詢問該在哪裡下車',
+                        kr: '어디에서 내려야 돼요?',
+                        roman: 'eo-di-e-seo nae-ryeo-ya dwae-yo?',
+                        zh: '請問我應該在哪裡下車？',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -아/어야 되다',
+                                meaning: '必須…… / 應該……',
+                                explanation: '表達必要性或義務。내리다（下車）變形為 내려야 돼요?，用來向司機或路人確認下車點非常實用。',
+                                examples: [
+                                    { kr: '어디에서 갈아타야 돼요?', zh: '請問要在哪裡轉車？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd4s5',
+                        situation: '上公車前跟司機確認路線',
+                        kr: '이 버스 명동에 가요?',
+                        roman: 'i beo-seu myeong-dong-e ga-yo?',
+                        zh: '請問這班公車有去明洞嗎？',
+                        grammar: [
+                            {
+                                pattern: '地點 + 에 가다',
+                                meaning: '去（某個地方）',
+                                explanation: '搭配移動動詞 가다（去）、오다（來）時，目的地後面加助詞 에。上公車前直接指著路線問這句最快！',
+                                examples: [
+                                    { kr: '공항에 가는 버스예요?', zh: '這是去機場的公車嗎？' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day5',
+                dayLabel: 'DAY 5',
+                title: '日常寒暄與約見面',
+                krTitle: '일상 인사 & 약속 잡기',
+                desc: '跟韓國朋友聊天、約週末吃飯的必備日常句型。',
+                vocab: [
+                    { id: 'd5v1', kr: '요즘', roman: 'yo-jeum', zh: '最近', pos: '名詞', exKr: '요즘 어떻게 지내요?', exZh: '最近過得怎麼樣？' },
+                    { id: 'd5v2', kr: '바쁘다', roman: 'ba-ppeu-da', zh: '忙碌', pos: '形容詞', exKr: '요즘 너무 바빠요.', exZh: '最近非常忙。' },
+                    { id: 'd5v3', kr: '주말', roman: 'ju-mal', zh: '週末', pos: '名詞', exKr: '주말 잘 보내세요!', exZh: '祝你週末愉快！' },
+                    { id: 'd5v4', kr: '시간', roman: 'si-gan', zh: '時間', pos: '名詞', exKr: '시간이 빨리 가요.', exZh: '時間過得很快。' },
+                    { id: 'd5v5', kr: '같이', roman: 'ga-chi', zh: '一起', pos: '副詞', exKr: '우리 같이 가요.', exZh: '我們一起去吧。' },
+                    { id: 'd5v6', kr: '저녁', roman: 'jeo-nyeok', zh: '晚上 / 晚餐', pos: '名詞', exKr: '저녁 먹었어요?', exZh: '吃晚餐了嗎？' },
+                    { id: 'd5v7', kr: '약속', roman: 'yak-sok', zh: '約定 / 約會', pos: '名詞', exKr: '내일 약속이 있어요.', exZh: '明天有約。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd5s1',
+                        situation: '約朋友週末見面',
+                        kr: '이번 주말에 시간 있어요?',
+                        roman: 'i-beon ju-ma-re si-gan i-sseo-yo?',
+                        zh: '這個週末有空嗎？',
+                        grammar: [
+                            {
+                                pattern: '時間名詞 + 에',
+                                meaning: '在（某個時間點）',
+                                explanation: '表示動作或狀態發生的時間。注意：오늘（今天）、내일（明天）、어제（昨天）後面不加 에，但 주말（週末）需要加 에。',
+                                examples: [
+                                    { kr: '7시에 만나요.', zh: '七點見面吧。' }
+                                ]
+                            },
+                            {
+                                pattern: '시간 있어요?',
+                                meaning: '有時間嗎？／有空嗎？',
+                                explanation: '原形為 시간이 있다，日常口語常省略主格助詞 이，直接說 시간 있어요?，非常自然。',
+                                examples: [
+                                    { kr: '내일 시간 없어요.', zh: '明天沒空。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd5s2',
+                        situation: '提議一起吃晚餐',
+                        kr: '우리 같이 저녁 먹을까요?',
+                        roman: 'u-ri ga-chi jeo-nyeok meo-geul-kka-yo?',
+                        zh: '我們一起吃晚餐好嗎？',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -(으)ㄹ까요?',
+                                meaning: '……好嗎？（提議或徵求意見）',
+                                explanation: '向對方提出共同做某事的建議。有尾音加 -을까요?（먹다 → 먹을까요?）；無尾音加 -ㄹ까요?（가다 → 갈까요?）。',
+                                examples: [
+                                    { kr: '우리 영화 볼까요?', zh: '我們看電影好嗎？' },
+                                    { kr: '커피 마실까요?', zh: '要不要喝杯咖啡？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd5s3',
+                        situation: '和韓國朋友見面聊天很愉快時',
+                        kr: '오늘 만나서 정말 반가웠어요!',
+                        roman: 'o-neul man-na-seo jeong-mal ban-ga-wo-sseo-yo!',
+                        zh: '今天能見到你真的很開心！',
+                        grammar: [
+                            {
+                                pattern: '動詞 + -아서/어서 + 情感形容詞',
+                                meaning: '因為做某事而感到……',
+                                explanation: '만나다（見面）加上 -아서 表示原因，接上 반갑다（高興/開心）的過去式 반가웠어요，聚會結束時說這句非常暖心。',
+                                examples: [
+                                    { kr: '도와주셔서 정말 감사해요.', zh: '謝謝您的幫忙。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd5s4',
+                        situation: '想跟新認識的韓國朋友交換聯絡方式',
+                        kr: '인스타그램이나 카카오톡 있어요?',
+                        roman: 'in-seu-ta-geu-rae-mi-na ka-ka-o-tok i-sseo-yo?',
+                        zh: '你有 Instagram 或 KakaoTalk 嗎？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + (이)나',
+                                meaning: '……或者……',
+                                explanation: '連接兩個選項表示「或」。前面名詞有尾音加 이나（인스타그램이나），無尾音加 나（커피나 차）。',
+                                examples: [
+                                    { kr: '토요일이나 일요일에 만나요.', zh: '我們週六或週日見面吧。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd5s5',
+                        situation: '聚會結束各自回家時貼心道別',
+                        kr: '조심히 들어가세요! 도착하면 연락해요.',
+                        roman: 'jo-sim-hi deu-reo-ga-se-yo! do-cha-ka-myeon yeol-la-kae-yo.',
+                        zh: '回去路上小心喔！到了聯絡我。',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -(으)면',
+                                meaning: '如果……的話 / 當……時',
+                                explanation: '表示條件或假設。도착하다（抵達）無尾音加 -면 → 도착하면（如果到了的話）。들어가다 字面是進去，在道別時專指「回家」。',
+                                examples: [
+                                    { kr: '시간 있으면 연락해요.', zh: '有空的話聯絡我。' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day6',
+                dayLabel: 'DAY 6',
+                title: '旅遊飯店入住',
+                krTitle: '호텔 체크인하기',
+                desc: '出國住飯店必備！學會辦理入住、寄放行李與詢問設施。',
+                vocab: [
+                    { id: 'd6v1', kr: '체크인', roman: 'che-keu-in', zh: '辦理入住 (Check-in)', pos: '名詞', exKr: '체크인 몇 시부터예요?', exZh: '幾點開始可以辦理入住？' },
+                    { id: 'd6v2', kr: '예약', roman: 'ye-yak', zh: '預約 / 訂房', pos: '名詞', exKr: '이름으로 예약했어요.', exZh: '我是用名字預約的。' },
+                    { id: 'd6v3', kr: '여권', roman: 'yeo-gwon', zh: '護照', pos: '名詞', exKr: '여기 여권 있습니다.', exZh: '這是我的護照。' },
+                    { id: 'd6v4', kr: '조식', roman: 'jo-sik', zh: '飯店早餐', pos: '名詞', exKr: '조식이 포함되어 있어요?', exZh: '有包含早餐嗎？' },
+                    { id: 'd6v5', kr: '짐', roman: 'jim', zh: '行李', pos: '名詞', exKr: '짐이 좀 많아요.', exZh: '行李有點多。' },
+                    { id: 'd6v6', kr: '맡기다', roman: 'mat-gi-da', zh: '寄放 / 託管', pos: '動詞', exKr: '잠깐 짐 좀 맡길게요.', exZh: '我先暫時寄放一下行李。' },
+                    { id: 'd6v7', kr: '체크아웃', roman: 'che-keu-a-ut', zh: '退房 (Check-out)', pos: '名詞', exKr: '체크아웃 부탁드려요.', exZh: '麻煩幫我辦理退房。' }
+                ],
+                speaking: [
+                    {
+                        id: 'd6s1',
+                        situation: '抵達飯店櫃檯辦理入住',
+                        kr: '예약했는데 체크인 부탁드립니다.',
+                        roman: 'ye-ya-kaen-neun-de che-keu-in bu-tak-deu-rim-ni-da.',
+                        zh: '我有訂房，麻煩幫我辦理入住。',
+                        grammar: [
+                            {
+                                pattern: '動詞過去式 + -는데',
+                                meaning: '……了，（接著說明狀況或請求）',
+                                explanation: '用來先交代背景狀況，再引出後面的請求。예약했다（預約了）加上 -는데，自然引出「所以我要辦入住」。',
+                                examples: [
+                                    { kr: '방 열쇠를 잃어버렸는데 도와주세요.', zh: '我弄丟房卡了，請幫幫我。' }
+                                ]
+                            },
+                            {
+                                pattern: '名詞 + 부탁드립니다',
+                                meaning: '拜託您…… / 麻煩您……（極禮貌）',
+                                explanation: '比 주세요 更正式客氣的用法，由 부탁（拜託）＋ 드리다（給的謙稱）構成，非常適合在飯店或服務櫃檯使用。',
+                                examples: [
+                                    { kr: '잘 부탁드립니다.', zh: '請多多指教。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd6s2',
+                        situation: '退房後還想逛街，詢問寄放行李',
+                        kr: '체크아웃 후에 짐을 맡길 수 있어요?',
+                        roman: 'che-keu-a-ut hu-e ji-meul mat-gil su i-sseo-yo?',
+                        zh: '請問退房後可以寄放行李嗎？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + 후에',
+                                meaning: '在……之後',
+                                explanation: '接在名詞後面表示時間先後順序。체크아웃 후에 就是「退房之後」。',
+                                examples: [
+                                    { kr: '식사 후에 커피 마셔요.', zh: '飯後喝咖啡。' }
+                                ]
+                            },
+                            {
+                                pattern: '動詞詞幹 + -(으)ㄹ 수 있어요?',
+                                meaning: '可以……嗎？ / 能夠……嗎？',
+                                explanation: '詢問可能性或對方能否提供某項服務。맡기다（寄放）無尾音，加 -ㄹ 수 있어요? 變成 맡길 수 있어요?。',
+                                examples: [
+                                    { kr: '카드로 결제할 수 있어요?', zh: '可以刷卡付款嗎？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd6s3',
+                        situation: '進房間前詢問飯店的 Wi-Fi 密碼',
+                        kr: '방 와이파이 비밀번호가 뭐예요?',
+                        roman: 'bang wa-i-pa-i bi-mil-beon-ho-ga mwo-ye-yo?',
+                        zh: '請問房間的 Wi-Fi 密碼是什麼？',
+                        grammar: [
+                            {
+                                pattern: '名詞 + 이/가 뭐예요?',
+                                meaning: '……是什麼？',
+                                explanation: '詢問具體資訊的基本句型。비밀번호（密碼）無尾音接 가，搭配 뭐예요?（是什麼）。',
+                                examples: [
+                                    { kr: '방 번호가 뭐예요?', zh: '房號是多少？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd6s4',
+                        situation: '打電話或到櫃檯請求多給毛巾',
+                        kr: '수건 좀 더 갖다 주실 수 있어요?',
+                        roman: 'su-geon jom deo gat-da ju-sil su i-sseo-yo?',
+                        zh: '請問可以再幫我送一些毛巾來嗎？',
+                        grammar: [
+                            {
+                                pattern: '갖다 주다 (가져다주다 的口語縮寫)',
+                                meaning: '拿來給（某人）',
+                                explanation: '住飯店需要補充毛巾（수건）、礦泉水（생수）或衛生紙（휴지）時，用 갖다 주실 수 있어요? 既道地又非常有禮貌！',
+                                examples: [
+                                    { kr: '생수 두 병만 갖다 주실 수 있어요?', zh: '可以幫我送兩瓶礦泉水來嗎？' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd6s5',
+                        situation: '確認隔天的退房截止時間',
+                        kr: '내일 체크아웃은 몇 시까지예요?',
+                        roman: 'nae-il che-keu-a-u-seun myeot si-kka-ji-ye-yo?',
+                        zh: '請問明天退房是到幾點呢？',
+                        grammar: [
+                            {
+                                pattern: '몇 시까지예요?',
+                                meaning: '到幾點為止？',
+                                explanation: '몇 시（幾點）加上 까지（到……為止），問退房時間、餐廳營業結束時間或商店打烊時間都超實用！',
+                                examples: [
+                                    { kr: '조식은 몇 시까지예요?', zh: '早餐供應到幾點？' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'day7',
+                dayLabel: 'DAY 7',
+                title: '追星與演唱會應援',
+                krTitle: '덕질 & 콘서트 응원',
+                desc: '迷妹迷弟必學！看演唱會、簽售會與對偶像告白應援的道地韓語。',
+                vocab: [
+                    { id: 'd7v1', kr: '최애', roman: 'choe-ae', zh: '本命 / 最愛', pos: '名詞', exKr: '제 최애 멤버예요!', exZh: '這是我最喜歡的成員！' },
+                    { id: 'd7v2', kr: '컴백', roman: 'keom-baek', zh: '回歸 (Comeback)', pos: '名詞', exKr: '다음 달에 컴백해요!', exZh: '下個月要回歸了！' },
+                    { id: 'd7v3', kr: '콘서트', roman: 'kon-seo-teu', zh: '演唱會', pos: '名詞', exKr: '콘서트 티켓을 구했어요.', exZh: '我搶到演唱會門票了。' },
+                    { id: 'd7v4', kr: '굿즈', roman: 'gut-jeu', zh: '周邊商品 (Goods)', pos: '名詞', exKr: '굿즈를 많이 샀어요.', exZh: '買了好多周邊商品。' },
+                    { id: 'd7v5', kr: '응원하다', roman: 'eung-won-ha-da', zh: '應援 / 加油', pos: '動詞', exKr: '끝까지 응원할게요!', exZh: '我會一直應援到底的！' },
+                    { id: 'd7v6', kr: '포토카드', roman: 'po-to-ka-deu', zh: '小卡 (簡稱 포카)', pos: '名詞', exKr: '최애 포토카드가 나왔어요!', exZh: '抽到本命的小卡了！' },
+                    { id: 'd7v7', kr: '대박', roman: 'dae-bak', zh: '大發 / 超棒的', pos: '感嘆詞', exKr: '무대가 진짜 대박이에요!', exZh: '舞台真的太棒了！' }
+                ],
+                speaking: [
+                    {
+                        id: 'd7s1',
+                        situation: '在簽售會或留言時向偶像表達支持',
+                        kr: '항상 응원하고 있어요!',
+                        roman: 'hang-sang eung-won-ha-go i-sseo-yo!',
+                        zh: '我一直都在為你應援喔！',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -고 있다',
+                                meaning: '正在…… / 持續……著',
+                                explanation: '表示某個動作正在進行，或是某種狀態一直持續著。응원하다（應援）加上 -고 있어요，搭配 항상（總是/一直），就能傳達長久的支持。',
+                                examples: [
+                                    { kr: '지금 노래를 듣고 있어요.', zh: '現在正在聽歌。' },
+                                    { kr: '매일 기다리고 있어요.', zh: '每天都在等著你。' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd7s2',
+                        situation: '跟同好聊偶像的新專輯或新歌',
+                        kr: '이번에 나온 신곡이 진짜 좋아요!',
+                        roman: 'i-beo-ne na-on sin-go-gi jin-jja jo-a-yo!',
+                        zh: '這次出的新歌真的太好聽了！',
+                        grammar: [
+                            {
+                                pattern: '動詞詞幹 + -(으)ㄴ + 名詞',
+                                meaning: '已經……的（過去式名詞修飾）',
+                                explanation: '動詞修飾後方名詞並表示動作「已經完成」時，無尾音加 -ㄴ，有尾音加 -은。나오다（推出/出來）→ 나온 신곡（已經推出的新歌）。',
+                                examples: [
+                                    { kr: '어제 본 드라마 (보다 → 본)', zh: '昨天看的韓劇' },
+                                    { kr: '아까 산 앨범 (사다 → 산)', zh: '剛剛買的專輯' }
+                                ]
+                            },
+                            {
+                                pattern: '진짜 (口語強調副詞)',
+                                meaning: '真的、超級',
+                                explanation: '在日常韓語與追星對話中出現頻率極高！比 정말 更口語親切，放在形容詞或動詞前面加強語氣。',
+                                examples: [
+                                    { kr: '진짜 멋있어요!', zh: '真的好帥！' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd7s3',
+                        situation: '近距離看到偶像本人，忍不住誇獎',
+                        kr: '실물이 훨씬 더 멋있어요!',
+                        roman: 'sil-mu-ri hwol-ssin deo meo-si-sseo-yo!',
+                        zh: '本人比照片/螢幕上還要帥多了！',
+                        grammar: [
+                            {
+                                pattern: '훨씬 더 + 形容詞',
+                                meaning: '遠遠更加……',
+                                explanation: '실물 指「本人/實體」。單說 더 멋있어요（更帥）已經很棒，加上 훨씬（遠遠地）能把驚豔感拉到最滿！對女偶像可以把 멋있어요 換成 예뻐요。',
+                                examples: [
+                                    { kr: '실물이 훨씬 더 예뻐요!', zh: '本人漂亮太多了！' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd7s4',
+                        situation: '簽售會自我介紹，邀請偶像再來台灣',
+                        kr: '대만에서 왔어요! 또 와 주세요.',
+                        roman: 'dae-ma-ne-seo wa-sseo-yo! tto wa ju-se-yo.',
+                        zh: '我是從台灣來的！請一定要再來喔。',
+                        grammar: [
+                            {
+                                pattern: '地點 + 에서 왔어요',
+                                meaning: '我是從……來的',
+                                explanation: '에서 除了表示動作場所，接在 오다（來）前面也表示「從某地出發」。또 是「再、又」，또 와 주세요 就是「請再來喔！」。',
+                                examples: [
+                                    { kr: '대만 콘서트 또 와 주세요!', zh: '請再來台灣開演唱會喔！' }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 'd7s5',
+                        situation: '演唱會或活動結束後，對偶像暖心應援',
+                        kr: '오늘 정말 수고하셨어요! 사랑해요!',
+                        roman: 'o-neul jeong-mal su-go-ha-syeo-sseo-yo! sa-rang-hae-yo!',
+                        zh: '今天真的辛苦了！我愛你！',
+                        grammar: [
+                            {
+                                pattern: '수고하셨어요 (수고하다 + -시- + -었어요)',
+                                meaning: '您辛苦了！',
+                                explanation: '韓國文化中極具溫度的慰勞語！對剛表演完的偶像、或是辛勞的工作人員說這句，會讓對方覺得非常貼心。',
+                                examples: [
+                                    { kr: '오늘 무대도 너무 수고하셨어요!', zh: '今天的舞台也真的辛苦了！' }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // ==========================================
+        // 1.5 聽寫練習資料庫 (針對有語感、想加強文法與旅遊溝通設計)
+        //     每主題包含：2 題「句子聽音重組」+ 1 篇「小短文聽力填空」
+        // ==========================================
+        const DICTATION_DATA = {
+            day1: {
+                sentences: [
+                    {
+                        id: 'd1_ds1',
+                        title: '情境句 1：同時點飲料和甜點',
+                        fullKr: '아이스 아메리카노 한 잔하고 치즈케이크 하나 주세요.',
+                        zh: '請給我一杯冰美式咖啡和一個起司蛋糕。',
+                        chunks: ['아이스', '아메리카노', '한 잔하고', '치즈케이크', '하나', '주세요.'],
+                        grammarTip: '名詞 + 하고 = 「和、跟」（口語最常用！）。점원 聽起來超自然：한 잔하고（一杯和……）。'
+                    },
+                    {
+                        id: 'd1_ds2',
+                        title: '情境句 2：詢問店內 Wi-Fi 密碼',
+                        fullKr: '혹시 여기 와이파이 비밀번호가 어떻게 되나요?',
+                        zh: '請問這裡的 Wi-Fi 密碼是多少呢？',
+                        chunks: ['혹시', '여기', '와이파이', '비밀번호가', '어떻게', '되나요?'],
+                        grammarTip: '혹시（請問/不曉得……）放在句首能大幅增加禮貌感；「어떻게 되나요?」是詢問號碼、時間、密碼的超道地句型！'
+                    }
+                ],
+                passage: {
+                    id: 'd1_dp1',
+                    title: '旅遊小短文：在聖水洞咖啡廳點餐',
+                    fullKr: '안녕하세요! 아이스 바닐라 라떼 한 잔 주세요. 매장 자리가 있으면 여기서 마시고 갈게요. 혹시 디카페인으로도 바꿀 수 있어요? 감사합니다!',
+                    zh: '你好！請給我一杯冰香草拿鐵。如果店裡有位子的話，我要在這裡喝完再走。請問也可以換成低咖啡因的嗎？謝謝！',
+                    segments: [
+                        { text: '안녕하세요! 아이스 바닐라 라떼 ' },
+                        { blankIndex: 0, answer: '한 잔 주세요.' },
+                        { text: ' 매장 자리가 ' },
+                        { blankIndex: 1, answer: '있으면' },
+                        { text: ' 여기서 마시고 갈게요. 혹시 디카페인으로도 ' },
+                        { blankIndex: 2, answer: '바꿀 수 있어요?' },
+                        { text: ' 감사합니다!' }
+                    ],
+                    distractors: ['없으면', '먹을게요.'],
+                    grammarTip: '1) 「-(으)면」表示「如果……」（있으면 = 如果有）。2) 「-(으)로도」= 「也可以用……（換成）」。3) 「바꾸다（換）+ -ㄹ 수 있어요?」= 「可以換嗎？」。'
+                }
+            },
+            day2: {
+                sentences: [
+                    {
+                        id: 'd2_ds1',
+                        title: '情境句 1：確認辣度並請店家調淡',
+                        fullKr: '이거 많이 매워요? 덜 맵게 해 주실 수 있어요?',
+                        zh: '這個很辣嗎？可以幫我做不那麼辣嗎？',
+                        chunks: ['이거', '많이', '매워요?', '덜 맵게', '해 주실 수', '있어요?'],
+                        grammarTip: '맵다 是 ㅂ 不規則形容詞，遇母音變成 매워요；但接 -게（變成副詞）時不變形，直接寫 덜 맵게！'
+                    },
+                    {
+                        id: 'd2_ds2',
+                        title: '情境句 2：請老闆給分食盤跟水',
+                        fullKr: '사장님, 여기 물이랑 앞접시 좀 주시겠어요?',
+                        zh: '老闆，這裡麻煩可以給我水和分食盤嗎？',
+                        chunks: ['사장님,', '여기', '물이랑', '앞접시 좀', '주시겠어요?'],
+                        grammarTip: '名詞 + (이)랑 = 口語的「和」（有尾音加 이랑 → 물이랑）；「-시겠어요?」比 주세요 更委婉客氣。'
+                    }
+                ],
+                passage: {
+                    id: 'd2_dp1',
+                    title: '旅遊小短文：去吃人氣辣炒年糕店',
+                    fullKr: '여기 처음 왔는데 뭐가 제일 맛있어요? 저는 매운 걸 잘 못 먹어서 덜 맵게 부탁드려요. 그리고 튀김도 하나 추가할게요!',
+                    zh: '我第一次來這裡，什麼最好吃呢？因為我不太能吃辣，麻煩幫我做少辣。然後再幫我加點一份炸物！',
+                    segments: [
+                        { text: '여기 처음 ' },
+                        { blankIndex: 0, answer: '왔는데' },
+                        { text: ' 뭐가 제일 맛있어요? 저는 매운 걸 잘 ' },
+                        { blankIndex: 1, answer: '못 먹어서' },
+                        { text: ' 덜 맵게 부탁드려요. 그리고 튀김도 하나 ' },
+                        { blankIndex: 2, answer: '추가할게요!' }
+                    ],
+                    distractors: ['안 먹어서', '취소할게요!'],
+                    grammarTip: '1) 「왔는데」先交代「第一次來」的背景。2) 「못 먹어서」表示「能力上不能吃（因為不能吃辣）」，和單純不吃的「안 먹다」不同喔！3) 추가하다 = 追加、加點。'
+                }
+            },
+            day3: {
+                sentences: [
+                    {
+                        id: 'd3_ds1',
+                        title: '情境句 1：詢問有沒有其他顏色',
+                        fullKr: '혹시 이 옷 다른 색깔도 있어요?',
+                        zh: '請問這件衣服也有其他顏色嗎？',
+                        chunks: ['혹시', '이 옷', '다른', '색깔도', '있어요?'],
+                        grammarTip: '名詞 + 도 = 「也……」。問完尺寸或款式想再問其他顏色，加上 도（색깔도）語氣超道地！'
+                    },
+                    {
+                        id: 'd3_ds2',
+                        title: '情境句 2：喜歡但太大件，想看小一號',
+                        fullKr: '마음에 드는데 조금 커서 작은 사이즈로 볼게요.',
+                        zh: '我很喜歡，但因為有點大，我看看小一點的尺寸吧。',
+                        chunks: ['마음에 드는데', '조금 커서', '작은', '사이즈로', '볼게요.'],
+                        grammarTip: '「마음에 들다」是「中意、喜歡」的固定片語；「크다 + -어서 → 커서」表示原因（因為大）。'
+                    }
+                ],
+                passage: {
+                    id: 'd3_dp1',
+                    title: '旅遊小短文：在弘大逛服飾店退稅',
+                    fullKr: '이 자켓 정말 예쁜데 한번 입어 봐도 돼요? 핏이 딱 맞아서 이걸로 살게요. 혹시 여기서 택스 리펀도 되나요?',
+                    zh: '這件外套真的很漂亮，可以試穿一下嗎？版型剛剛好，那我就買這件了。請問這裡也可以辦理退稅嗎？',
+                    segments: [
+                        { text: '이 자켓 정말 예쁜데 한번 ' },
+                        { blankIndex: 0, answer: '입어 봐도 돼요?' },
+                        { text: ' 핏이 딱 ' },
+                        { blankIndex: 1, answer: '맞아서' },
+                        { text: ' 이걸로 살게요. 혹시 여기서 ' },
+                        { blankIndex: 2, answer: '택스 리펀도' },
+                        { text: ' 되나요?' }
+                    ],
+                    distractors: ['입어 주세요.', '작아서'],
+                    grammarTip: '1) 「딱 맞다」= 剛剛好合身（逛街必學！）。2) 「이걸로 살게요」= 我就買這個了（이것으로 的口語縮寫）。3) 「택스 리펀도 되나요?」= 也可以退稅嗎？'
+                }
+            },
+            day4: {
+                sentences: [
+                    {
+                        id: 'd4_ds1',
+                        title: '情境句 1：確認地鐵是否需要轉乘',
+                        fullKr: '여기서 2호선으로 갈아타야 돼요?',
+                        zh: '要在這裡轉搭 2 號線嗎？',
+                        chunks: ['여기서', '2호선으로', '갈아타야', '돼요?'],
+                        grammarTip: '「갈아타다」是換乘／轉車；動詞 + 「-아/어야 되다」表示「必須、需要……」。'
+                    },
+                    {
+                        id: 'd4_ds2',
+                        title: '情境句 2：上公車前跟司機確認路線',
+                        fullKr: '죄송한데 이 버스 명동역으로 가나요?',
+                        zh: '不好意思，請問這班公車有往明洞站嗎？',
+                        chunks: ['죄송한데', '이 버스', '명동역으로', '가나요?'],
+                        grammarTip: '「죄송한데（不好意思，但……）」用來禮貌搭話超好用！搭配方向助詞 -(으)로，問路零失誤。'
+                    }
+                ],
+                passage: {
+                    id: 'd4_dp1',
+                    title: '旅遊小短文：在街頭向路人問路',
+                    fullKr: '실례지만 여기서 지하철역이 가까워요? 쭉 직진하다가 편의점이 보이면 오른쪽으로 도세요. 걸어서 5분쯤 걸릴 거예요.',
+                    zh: '不好意思，地鐵站離這裡近嗎？一直直走，看到便利商店的話往右轉。走路大概會花 5 分鐘左右。',
+                    segments: [
+                        { text: '실례지만 여기서 지하철역이 가까워요? 쭉 ' },
+                        { blankIndex: 0, answer: '직진하다가' },
+                        { text: ' 편의점이 보이면 ' },
+                        { blankIndex: 1, answer: '오른쪽으로' },
+                        { text: ' 도세요. 걸어서 5분쯤 ' },
+                        { blankIndex: 2, answer: '걸릴 거예요.' }
+                    ],
+                    distractors: ['왼쪽으로', '걸렸어요.'],
+                    grammarTip: '1) 動詞 + 「-다가」表示動作進行到一半轉換（直走到一半看到……）。2) 「-(으)ㄹ 거예요」表示推測（大概會花 5 分鐘）。'
+                }
+            },
+            day5: {
+                sentences: [
+                    {
+                        id: 'd5_ds1',
+                        title: '情境句 1：跟久違的韓國朋友打招呼',
+                        fullKr: '오랜만이에요! 요즘 어떻게 지냈어요?',
+                        zh: '好久不見！最近過得怎麼樣？',
+                        chunks: ['오랜만이에요!', '요즘', '어떻게', '지냈어요?'],
+                        grammarTip: '지내다（度過）的過去式是 지냈어요，問對方「這陣子過得好嗎」用過去式比現在式更有親切感喔！'
+                    },
+                    {
+                        id: 'd5_ds2',
+                        title: '情境句 2：週末約吃飯',
+                        fullKr: '시간 괜찮으면 이번 주말에 같이 밥 먹을까요?',
+                        zh: '如果時間方便的話，這週末一起吃飯好嗎？',
+                        chunks: ['시간', '괜찮으면', '이번 주말에', '같이 밥', '먹을까요?'],
+                        grammarTip: '「괜찮다 + -(으)면」= 如果沒關係／方便的話；「-(으)ㄹ까요?」用來提出邀請，語氣溫柔不給壓力。'
+                    }
+                ],
+                passage: {
+                    id: 'd5_dp1',
+                    title: '日常小短文：跟朋友約見面吃晚餐',
+                    fullKr: '요즘 일이 많아서 너무 바빴어요. 그래도 이번 토요일에는 시간이 있어요! 우리 6시에 강남역에서 만나서 맛있는 거 먹어요.',
+                    zh: '最近工作很多所以非常忙。不過這週六有空喔！我們 6 點在江南站見面，然後去吃好吃的吧。',
+                    segments: [
+                        { text: '요즘 일이 ' },
+                        { blankIndex: 0, answer: '많아서' },
+                        { text: ' 너무 바빴어요. 그래도 이번 토요일에는 ' },
+                        { blankIndex: 1, answer: '시간이 있어요!' },
+                        { text: ' 우리 6시에 강남역에서 ' },
+                        { blankIndex: 2, answer: '만나서' },
+                        { text: ' 맛있는 거 먹어요.' }
+                    ],
+                    distractors: ['적어서', '시간이 없어요!'],
+                    grammarTip: '這裡出現了兩次「-아서/어서」：1) 「많아서」表示原因（因為多所以忙）。2) 「만나서」表示先後動作（見面之後接著吃飯）。'
+                }
+            },
+            day6: {
+                sentences: [
+                    {
+                        id: 'd6_ds1',
+                        title: '情境句 1：提早到飯店想先寄放行李',
+                        fullKr: '체크인 시간보다 일찍 왔는데 짐 좀 맡길 수 있어요?',
+                        zh: '我比入住時間早到了，請問可以先寄放一下行李嗎？',
+                        chunks: ['체크인', '시간보다', '일찍 왔는데', '짐 좀', '맡길 수 있어요?'],
+                        grammarTip: '名詞 + 「보다」= 「比……」（체크인 시간보다 일찍 = 比入住時間早），旅遊超常說！'
+                    },
+                    {
+                        id: 'd6_ds2',
+                        title: '情境句 2：詢問飯店早餐供應時間',
+                        fullKr: '조식은 몇 시부터 몇 시까지 이용할 수 있나요?',
+                        zh: '請問早餐是幾點到幾點可以使用呢？',
+                        chunks: ['조식은', '몇 시부터', '몇 시까지', '이용할 수', '있나요?'],
+                        grammarTip: '「A부터 B까지」= 「從 A 到 B」，問營業時間、早餐時間或展覽期間都直接套用！'
+                    }
+                ],
+                passage: {
+                    id: 'd6_dp1',
+                    title: '旅遊小短文：順利辦理首爾飯店入住',
+                    fullKr: '안녕하세요, 예약했는데 체크인 부탁드립니다. 여기 제 여권이에요. 혹시 높은 층으로 배정해 주실 수 있나요? 감사합니다!',
+                    zh: '你好，我有訂房，麻煩幫我辦理入住。這是我的護照。請問可以幫我安排高樓層嗎？謝謝！',
+                    segments: [
+                        { text: '안녕하세요, ' },
+                        { blankIndex: 0, answer: '예약했는데' },
+                        { text: ' 체크인 부탁드립니다. 여기 제 ' },
+                        { blankIndex: 1, answer: '여권이에요.' },
+                        { text: ' 혹시 높은 층으로 ' },
+                        { blankIndex: 2, answer: '배정해 주실 수' },
+                        { text: ' 있나요? 감사합니다!' }
+                    ],
+                    distractors: ['취소했는데', '가방이에요.'],
+                    grammarTip: '1) 「높은 층」= 高樓層（높다 + -은 修飾名詞）。2) 「배정하다」= 分配房間，「-아/어 주실 수 있나요?」是極客氣的請求句型。'
+                }
+            },
+            day7: {
+                sentences: [
+                    {
+                        id: 'd7_ds1',
+                        title: '情境句 1：看完演唱會超級感動',
+                        fullKr: '오늘 무대 진짜 대박이었어요! 너무 감동받았어요.',
+                        zh: '今天的舞台真的太神了！我超級感動。',
+                        chunks: ['오늘 무대', '진짜', '대박이었어요!', '너무', '감동받았어요.'],
+                        grammarTip: '名詞過去式接「-이었어요/였어요」（대박 + 이었어요）；「감동받다（受到感動）」比直接說感動更道地！'
+                    },
+                    {
+                        id: 'd7_ds2',
+                        title: '情境句 2：跟偶像約定下次演唱會見',
+                        fullKr: '다음 콘서트도 꼭 보러 갈게요, 건강 조심하세요!',
+                        zh: '下次演唱會我也一定會去看，請注意身體健康喔！',
+                        chunks: ['다음', '콘서트도', '꼭 보러', '갈게요,', '건강 조심하세요!'],
+                        grammarTip: '動詞詞幹 + 「-(으)러 가다」= 「為了去做某事而去」（보러 가다 = 去看）。偶像常說的「보러 와 줘서 고마워요」也是同一個文法！'
+                    }
+                ],
+                passage: {
+                    id: 'd7_dp1',
+                    title: '追星小短文：抽到本命小卡與應援心得',
+                    fullKr: '드디어 새 앨범이 나왔어요! 방금 앨범을 열었는데 최애 포토카드가 나와서 진짜 행복해요. 이번 활동도 끝까지 응원할게요!',
+                    zh: '新專輯終於出了！剛剛拆了專輯，竟然抽到本命小卡，真的超幸福。這次的回歸活動我也會應援到底的！',
+                    segments: [
+                        { text: '드디어 새 앨범이 ' },
+                        { blankIndex: 0, answer: '나왔어요!' },
+                        { text: ' 방금 앨범을 ' },
+                        { blankIndex: 1, answer: '열었는데' },
+                        { text: ' 최애 포토카드가 나와서 진짜 행복해요. 이번 활동도 끝까지 ' },
+                        { blankIndex: 2, answer: '응원할게요!' }
+                    ],
+                    distractors: ['닫았는데', '기다렸어요!'],
+                    grammarTip: '1) 「열다（打開）+ -었는데 → 열었는데」表示「打開了，結果發現……」。2) 「나와서」= 因為出現（抽到）了。3) 「끝까지 응원할게요」= 我會應援到底（表達決心）。'
+                }
+            }
+        };
+
+        // ==========================================
+        // 2. 應用程式狀態管理
+        // ==========================================
+        const STORAGE_KEY = 'haru_korean_progress_v1';
+
+        let state = {
+            currentDayIndex: 0,
+            currentTab: 'vocab', // 'vocab' | 'speaking' | 'dictation' | 'quiz' | 'notebook'
+            showRomanization: true,
+            learnedItems: {}, // { 'd1v1': true, 'd1s1': true, 'd1_ds1': true }
+            speakingScores: {}, // { 'd1s1': 92 } 記錄各句最高評分
+            recordings: {}, // { 'd1s1': 'blob:...' } 本次練習的錄音檔 URL（供重播）
+            lastSpeechResults: {}, // { 'd1s1': { spoken, totalScore, accuracy, completeness, passed, targetText, note } }
+            notes: [], // [{ id, kr, zh, memo, createdAt }]
+            dictation: {
+                mode: 'sentence', // 'sentence' | 'passage'
+                sentenceIndex: 0,
+                selectedChunks: [], // [{ text, poolIndex }]
+                poolChunks: [], // [{ text, used }]
+                showHint: false,
+                checked: false,
+                isCorrect: false,
+                // 短文填空狀態
+                passageBlanks: [], // [null, null, null] -> { text, poolIndex }
+                passagePool: [], // [{ text, used }]
+                activeBlank: 0,
+                passageShowHint: false,
+                passageChecked: false,
+                passageCorrect: false
+            },
+            quiz: {
+                questions: [],
+                currentIndex: 0,
+                score: 0,
+                answered: false,
+                finished: false
+            }
+        };
+
+        // 載入 localStorage 進度 (加上 try/catch 確保 iframe 環境安全)
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && typeof parsed === 'object') {
+                        state.learnedItems = parsed.learnedItems || {};
+                        state.speakingScores = parsed.speakingScores || {};
+                        state.notes = Array.isArray(parsed.notes) ? parsed.notes : [];
+                        if (typeof parsed.showRomanization === 'boolean') {
+                            state.showRomanization = parsed.showRomanization;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn('無法讀取本機進度：', err);
+            }
+        }
+
+        // 儲存進度到 localStorage
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    learnedItems: state.learnedItems,
+                    speakingScores: state.speakingScores,
+                    notes: state.notes,
+                    showRomanization: state.showRomanization
+                }));
+            } catch (err) {
+                console.warn('無法儲存本機進度：', err);
+            }
+        }
+
+        // ==========================================
+        // 3. 韓語語音朗讀 (TTS) 與口說錄音評分模組
+        // ==========================================
+        let koreanVoice = null;
+        let isPlayingAll = false;
+
+        function loadKoreanVoice() {
+            if (!('speechSynthesis' in window)) return;
+            const voices = window.speechSynthesis.getVoices();
+            koreanVoice = voices.find(v => v.lang === 'ko-KR') || voices.find(v => v.lang && v.lang.startsWith('ko')) || null;
+        }
+
+        if ('speechSynthesis' in window) {
+            loadKoreanVoice();
+            window.speechSynthesis.onvoiceschanged = loadKoreanVoice;
+        }
+
+        // 朗讀韓語文字 (支援正常/慢速)
+        function speakKorean(text, rate = 0.95) {
+            if (!('speechSynthesis' in window)) {
+                showToast('目前的瀏覽器不支援語音朗讀功能');
+                return;
+            }
+            try {
+                window.speechSynthesis.cancel();
+                isPlayingAll = false;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = rate;
+                if (koreanVoice) utterance.voice = koreanVoice;
+                window.speechSynthesis.speak(utterance);
+            } catch (err) {
+                showToast('語音播放發生錯誤，請稍後再試');
+            }
+        }
+
+        // 依序連播今日所有單字
+        function playAllVocab() {
+            if (!('speechSynthesis' in window)) {
+                showToast('目前的瀏覽器不支援語音朗讀功能');
+                return;
+            }
+            if (isPlayingAll) {
+                window.speechSynthesis.cancel();
+                isPlayingAll = false;
+                showToast('已停止連播');
+                return;
+            }
+            const lesson = LESSONS[state.currentDayIndex];
+            if (!lesson || !lesson.vocab.length) return;
+
+            window.speechSynthesis.cancel();
+            isPlayingAll = true;
+            showToast('🔊 開始連播今日單字...');
+
+            let idx = 0;
+            function playNext() {
+                if (!isPlayingAll || idx >= lesson.vocab.length) {
+                    isPlayingAll = false;
+                    return;
+                }
+                const utterance = new SpeechSynthesisUtterance(lesson.vocab[idx].kr);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.9;
+                if (koreanVoice) utterance.voice = koreanVoice;
+                utterance.onend = () => {
+                    idx++;
+                    setTimeout(playNext, 550);
+                };
+                utterance.onerror = () => {
+                    isPlayingAll = false;
+                };
+                window.speechSynthesis.speak(utterance);
+            }
+            playNext();
+        }
+
+        // 語音辨識與同步錄音重播 (嚴格評分模式：需達 85 分才核可)
+        let activeRecognition = null;
+        let activeMediaRecorder = null;
+        let activeMediaStream = null;
+        let activeRecordingId = null;
+        let currentAudioPlayer = null;
+        const SPEAKING_PASS_SCORE = 85;
+
+        // 停止目前的錄音與語音辨識
+        function stopActiveRecording() {
+            if (activeRecognition) {
+                try { activeRecognition.stop(); } catch (e) {}
+            }
+            if (activeMediaRecorder && activeMediaRecorder.state !== 'inactive') {
+                try { activeMediaRecorder.stop(); } catch (e) {}
+            }
+        }
+
+        // 釋放麥克風串流
+        function cleanupMediaStream() {
+            if (activeMediaStream) {
+                activeMediaStream.getTracks().forEach(t => t.stop());
+                activeMediaStream = null;
+            }
+        }
+
+        // 重播使用者自己的錄音
+        function playMyRecording(sentenceId) {
+            const audioUrl = state.recordings[sentenceId];
+            if (!audioUrl) {
+                showToast('目前沒有這句的錄音檔，請先點擊「錄音並評分」喔！');
+                return;
+            }
+            try {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                if (currentAudioPlayer) {
+                    currentAudioPlayer.pause();
+                    currentAudioPlayer.currentTime = 0;
+                }
+                currentAudioPlayer = new Audio(audioUrl);
+                currentAudioPlayer.play().catch(() => {
+                    showToast('無法播放錄音，請確認手機未開啟靜音模式');
+                });
+            } catch (err) {
+                showToast('播放錄音時發生錯誤');
+            }
+        }
+
+        // 原音示範 → 停頓 0.4 秒 → 自動重播自己的發音（對比語調用）
+        function compareWithNative(sentenceId, targetText) {
+            const audioUrl = state.recordings[sentenceId];
+            if (!audioUrl) {
+                showToast('請先錄音一次才能進行原音對比喔！');
+                return;
+            }
+            if (!('speechSynthesis' in window)) {
+                playMyRecording(sentenceId);
+                return;
+            }
+            try {
+                window.speechSynthesis.cancel();
+                if (currentAudioPlayer) {
+                    currentAudioPlayer.pause();
+                    currentAudioPlayer.currentTime = 0;
+                }
+                showToast('🔊 先聽韓語原音，接著播放你的發音...');
+                const utterance = new SpeechSynthesisUtterance(targetText);
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.9;
+                if (koreanVoice) utterance.voice = koreanVoice;
+                utterance.onend = () => {
+                    setTimeout(() => playMyRecording(sentenceId), 400);
+                };
+                window.speechSynthesis.speak(utterance);
+            } catch (err) {
+                playMyRecording(sentenceId);
+            }
+        }
+
+        // 啟動同步錄音與口說評分
+        async function startSpeechCheck(sentenceId, targetText) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const micBtn = document.getElementById(`mic-btn-${sentenceId}`);
+
+            // 若正在錄同一句，再次點擊即結束錄音並結算
+            if (activeRecordingId === sentenceId) {
+                stopActiveRecording();
+                return;
+            }
+
+            // 若別句正在錄，先停止
+            if (activeRecordingId) {
+                stopActiveRecording();
+            }
+
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            activeRecordingId = sentenceId;
+
+            if (micBtn) {
+                micBtn.classList.add('animate-pulse', 'bg-rose-600', 'text-white', 'border-rose-600');
+                micBtn.innerHTML = `<span>⏹️</span> <span>錄音中...說完點此評分</span>`;
+            }
+
+            // 1) 嘗試啟動 MediaRecorder 錄下使用者真實聲音（供重播）
+            let audioChunks = [];
+            let recorderStarted = false;
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && typeof MediaRecorder !== 'undefined') {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    activeMediaStream = stream;
+                    let options = {};
+                    if (MediaRecorder.isTypeSupported) {
+                        if (MediaRecorder.isTypeSupported('audio/mp4')) options.mimeType = 'audio/mp4';
+                        else if (MediaRecorder.isTypeSupported('audio/webm')) options.mimeType = 'audio/webm';
+                    }
+                    try {
+                        activeMediaRecorder = new MediaRecorder(stream, options);
+                    } catch (e) {
+                        activeMediaRecorder = new MediaRecorder(stream);
+                    }
+
+                    activeMediaRecorder.ondataavailable = (e) => {
+                        if (e.data && e.data.size > 0) audioChunks.push(e.data);
+                    };
+
+                    activeMediaRecorder.onstop = () => {
+                        if (audioChunks.length > 0) {
+                            const mime = activeMediaRecorder.mimeType || 'audio/mp4';
+                            const blob = new Blob(audioChunks, { type: mime });
+                            if (state.recordings[sentenceId]) {
+                                URL.revokeObjectURL(state.recordings[sentenceId]);
+                            }
+                            state.recordings[sentenceId] = URL.createObjectURL(blob);
+                        }
+                        cleanupMediaStream();
+                        activeMediaRecorder = null;
+
+                        // 若無語音辨識支援，錄完仍顯示重播面板
+                        if (!SpeechRecognition) {
+                            activeRecordingId = null;
+                            resetMicButtonUI(sentenceId);
+                            state.lastSpeechResults[sentenceId] = {
+                                targetText,
+                                spoken: null,
+                                noStt: true,
+                                note: '已錄下你的發音！目前瀏覽器未開放自動語音評分（建議用 Chrome / Safari），但你可以直接點擊下方「原音對比」重播檢視自己的發音！'
+                            };
+                            renderSpeechResultBox(sentenceId);
+                        } else {
+                            // 刷新結果卡片以顯示最新的重播按鈕
+                            renderSpeechResultBox(sentenceId);
+                        }
+                    };
+
+                    activeMediaRecorder.start();
+                    recorderStarted = true;
+                } catch (err) {
+                    console.warn('無法啟動錄音（將僅進行語音辨識）：', err);
+                }
+            }
+
+            // 如果不支援 SpeechRecognition
+            if (!SpeechRecognition) {
+                if (!recorderStarted) {
+                    activeRecordingId = null;
+                    resetMicButtonUI(sentenceId);
+                    state.lastSpeechResults[sentenceId] = {
+                        targetText,
+                        spoken: null,
+                        noStt: true,
+                        note: '⚠️ 目前視窗環境未開放麥克風權限（例如 App 內建預覽）。建議用 Safari 或 Chrome 開啟即可使用錄音重播與自動評分！'
+                    };
+                    renderSpeechResultBox(sentenceId);
+                } else {
+                    showToast('🎙️ 開始錄音！唸完後請再點一次按鈕即可重播對比');
+                }
+                return;
+            }
+
+            // 2) 啟動 Web Speech API 進行韓語辨識與嚴格評分
+            try {
+                const recognition = new SpeechRecognition();
+                activeRecognition = recognition;
+                recognition.lang = 'ko-KR';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+
+                let gotResult = false;
+
+                recognition.onresult = (event) => {
+                    gotResult = true;
+                    const spoken = event.results[0][0].transcript;
+                    const evalRes = evaluatePronunciation(targetText, spoken);
+
+                    state.lastSpeechResults[sentenceId] = {
+                        targetText,
+                        spoken,
+                        ...evalRes
+                    };
+
+                    // 更新最高分紀錄
+                    const prevBest = state.speakingScores[sentenceId] || 0;
+                    if (evalRes.totalScore > prevBest) {
+                        state.speakingScores[sentenceId] = evalRes.totalScore;
+                    }
+
+                    // 嚴格通關：必須達 85 分以上才核可！
+                    if (evalRes.passed) {
+                        state.learnedItems[sentenceId] = true;
+                        showToast(`🎉 評分 ${evalRes.totalScore} 分！恭喜通過口說核可！`);
+                    } else {
+                        showToast(`目前 ${evalRes.totalScore} 分（需達 ${SPEAKING_PASS_SCORE} 分通關），聽聽看錄音再挑戰！`);
+                    }
+
+                    saveProgress();
+                    updateProgressUI();
+                    renderDaySelector();
+                    // 停止錄音以產生可重播的音檔
+                    if (activeMediaRecorder && activeMediaRecorder.state !== 'inactive') {
+                        try { activeMediaRecorder.stop(); } catch (e) {}
+                    }
+                    renderSpeaking();
+                };
+
+                recognition.onerror = (event) => {
+                    let msg = '無法辨識語音，請靠近麥克風再試一次。';
+                    if (event.error === 'no-speech') msg = '沒有偵測到聲音，請開口唸出韓語再試一次。';
+                    if (event.error === 'not-allowed') msg = '未取得麥克風權限，請在瀏覽器設定中允許使用麥克風。';
+                    showToast(msg);
+                };
+
+                recognition.onend = () => {
+                    activeRecognition = null;
+                    if (activeMediaRecorder && activeMediaRecorder.state !== 'inactive') {
+                        try { activeMediaRecorder.stop(); } catch (e) {}
+                    }
+                    activeRecordingId = null;
+                    resetMicButtonUI(sentenceId);
+                    if (!gotResult && state.recordings[sentenceId]) {
+                        renderSpeechResultBox(sentenceId);
+                    }
+                };
+
+                recognition.start();
+            } catch (err) {
+                stopActiveRecording();
+                activeRecordingId = null;
+                resetMicButtonUI(sentenceId);
+                showToast('無法啟動語音辨識，請稍後再試');
+            }
+        }
+
+        function resetMicButtonUI(sentenceId) {
+            const micBtn = document.getElementById(`mic-btn-${sentenceId}`);
+            if (!micBtn) return;
+            micBtn.classList.remove('animate-pulse', 'bg-rose-600', 'text-white', 'border-rose-600');
+            micBtn.innerHTML = `<span>🎙️</span> <span>錄音並評分</span>`;
+        }
+
+        // 多維度發音評分：準確度 (60%) + 完整度 (40%) + 逐字比對
+        function evaluatePronunciation(targetText, spokenText) {
+            const clean = s => s.replace(/[\s.,?!~'"()]/g, '');
+            const a = clean(targetText);
+            const b = clean(spokenText);
+
+            const accuracy = calculateSimilarity(targetText, spokenText);
+            const matchedIndices = computeLCSMatchedIndices(a, b);
+            const completeness = a.length > 0 ? Math.round((matchedIndices.size / a.length) * 100) : 0;
+            const totalScore = Math.round(accuracy * 0.6 + completeness * 0.4);
+            const passed = totalScore >= SPEAKING_PASS_SCORE;
+
+            let grade = 'C';
+            let feedback = '差距稍大，建議先按「原音對比」聽聽看自己的發音與標準音哪裡不同，再挑戰一次！';
+            if (totalScore >= 95) {
+                grade = 'S';
+                feedback = '母語水準！發音與完整度都超級標準，已正式核可通關！';
+            } else if (totalScore >= SPEAKING_PASS_SCORE) {
+                grade = 'A';
+                feedback = '非常自然清楚！已達到 85 分通關標準，正式核可通過！';
+            } else if (totalScore >= 70) {
+                grade = 'B';
+                feedback = '很接近通關囉！請看上方紅色標記的字，針對那幾個音再多練一次即可過關！';
+            }
+
+            return { accuracy, completeness, totalScore, passed, grade, feedback, matchedIndices };
+        }
+
+        // 計算 LCS 找出目標句子中成功唸對的字元索引
+        function computeLCSMatchedIndices(a, b) {
+            const m = a.length, n = b.length;
+            const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+            for (let i = 1; i <= m; i++) {
+                for (let j = 1; j <= n; j++) {
+                    if (a[i - 1] === b[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
+                    else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+            const matched = new Set();
+            let i = m, j = n;
+            while (i > 0 && j > 0) {
+                if (a[i - 1] === b[j - 1]) {
+                    matched.add(i - 1);
+                    i--;
+                    j--;
+                } else if (dp[i - 1][j] >= dp[i][j - 1]) {
+                    i--;
+                } else {
+                    j--;
+                }
+            }
+            return matched;
+        }
+
+        // 產生逐字比對高亮 HTML（綠色＝唸對，紅色底線＝漏唸或發音偏差）
+        function buildDiffHtml(targetText, matchedIndices) {
+            let cleanIdx = 0;
+            let html = '';
+            for (const ch of targetText) {
+                if (/[\s.,?!~'"()]/.test(ch)) {
+                    html += escapeHtml(ch);
+                } else {
+                    if (matchedIndices && matchedIndices.has(cleanIdx)) {
+                        html += `<span class="text-emerald-700 bg-emerald-100/90 px-0.5 rounded">${escapeHtml(ch)}</span>`;
+                    } else {
+                        html += `<span class="text-rose-600 bg-rose-100 underline decoration-rose-400 decoration-wavy px-0.5 rounded">${escapeHtml(ch)}</span>`;
+                    }
+                    cleanIdx++;
+                }
+            }
+            return html;
+        }
+
+        // 渲染口說評分與重播結果面板
+        function renderSpeechResultBox(sentenceId) {
+            const resultBox = document.getElementById(`speech-result-${sentenceId}`);
+            if (!resultBox) return;
+
+            const res = state.lastSpeechResults[sentenceId];
+            const hasRecording = !!state.recordings[sentenceId];
+            if (!res && !hasRecording) {
+                resultBox.classList.add('hidden');
+                return;
+            }
+
+            resultBox.classList.remove('hidden');
+            const safeTarget = (res?.targetText || '').replace(/'/g, "\\'");
+
+            const replayControlsHtml = hasRecording ? `
+                <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-stone-200/80">
+                    <button onclick="playMyRecording('${sentenceId}')" class="liquid-pill px-3.5 py-2 rounded-full text-ink text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+                        <span>▶️</span> <span>重播我的發音</span>
+                    </button>
+                    <button onclick="compareWithNative('${sentenceId}', '${safeTarget}')" class="liquid-pill px-3.5 py-2 rounded-full text-coral-600 text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+                        <span>🔁</span> <span>原音 → 我 對比</span>
+                    </button>
+                </div>
+            ` : '';
+
+            if (res && res.noStt) {
+                resultBox.innerHTML = `
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2.5">
+                        <p class="text-xs text-amber-800 leading-relaxed">${escapeHtml(res.note)}</p>
+                        ${replayControlsHtml}
+                    </div>
+                `;
+                return;
+            }
+
+            if (res && res.spoken !== null) {
+                const diffHtml = buildDiffHtml(res.targetText, res.matchedIndices);
+                const statusBadge = res.passed
+                    ? `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">✓ ${res.grade} 級通關・${res.totalScore} 分</span>`
+                    : `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700 border border-rose-200">✕ 未達 85 分・${res.totalScore} 分</span>`;
+
+                resultBox.innerHTML = `
+                    <div class="bg-white border ${res.passed ? 'border-emerald-300' : 'border-stone-200'} rounded-2xl p-4 space-y-3 shadow-2xs">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                            <span class="text-xs font-bold text-ink/70">📊 發音評分報告</span>
+                            ${statusBadge}
+                        </div>
+
+                        <!-- 雙維度分數條 -->
+                        <div class="grid grid-cols-2 gap-2.5 text-xs">
+                            <div class="bg-stone-50 rounded-xl p-2.5 border border-stone-200/70">
+                                <div class="flex justify-between text-ink/65 mb-1"><span>發音準確度</span><span class="font-bold text-ink">${res.accuracy}%</span></div>
+                                <div class="h-1.5 bg-stone-200 rounded-full overflow-hidden"><div class="h-full ${res.accuracy >= 85 ? 'bg-emerald-500' : 'bg-coral-500'} rounded-full" style="width:${res.accuracy}%"></div></div>
+                            </div>
+                            <div class="bg-stone-50 rounded-xl p-2.5 border border-stone-200/70">
+                                <div class="flex justify-between text-ink/65 mb-1"><span>句子完整度</span><span class="font-bold text-ink">${res.completeness}%</span></div>
+                                <div class="h-1.5 bg-stone-200 rounded-full overflow-hidden"><div class="h-full ${res.completeness >= 85 ? 'bg-emerald-500' : 'bg-amber-500'} rounded-full" style="width:${res.completeness}%"></div></div>
+                            </div>
+                        </div>
+
+                        <!-- 逐字發音對照 -->
+                        <div class="space-y-1.5 bg-stone-50 rounded-xl p-3 border border-stone-200/70">
+                            <div class="flex items-center justify-between text-[11px] text-ink/55">
+                                <span>逐字發音檢核（綠＝正確／紅＝需加強）</span>
+                            </div>
+                            <p class="font-kr text-base sm:text-lg font-bold leading-relaxed">${diffHtml}</p>
+                            <p class="text-xs text-ink/60 pt-1">系統辨識到你唸的：<span class="font-kr font-semibold text-ink">「${escapeHtml(res.spoken)}」</span></p>
+                        </div>
+
+                        <p class="text-xs ${res.passed ? 'text-emerald-700 font-semibold' : 'text-ink/75'}">${escapeHtml(res.feedback)}</p>
+
+                        ${replayControlsHtml}
+                    </div>
+                `;
+            }
+        }
+
+        // 計算韓文字串相似度 (去除標點與空白後使用 Levenshtein 距離)
+        function calculateSimilarity(str1, str2) {
+            const clean = s => s.replace(/[\s.,?!~'"()]/g, '');
+            const a = clean(str1);
+            const b = clean(str2);
+            if (!a.length || !b.length) return 0;
+            if (a === b) return 100;
+
+            const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+            for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+            for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+            for (let i = 1; i <= a.length; i++) {
+                for (let j = 1; j <= b.length; j++) {
+                    const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j - 1] + cost
+                    );
+                }
+            }
+            const dist = matrix[a.length][b.length];
+            const maxLen = Math.max(a.length, b.length);
+            return Math.max(0, Math.round((1 - dist / maxLen) * 100));
+        }
+
+        // ==========================================
+        // 4. UI 渲染與互動邏輯
+        // ==========================================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 顯示底部提示訊息
+        let toastTimer = null;
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.textContent = msg;
+            container.classList.remove('opacity-0', 'translate-y-4');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                container.classList.add('opacity-0', 'translate-y-4');
+            }, 2600);
+        }
+
+        // 切換羅馬拼音顯示
+        function toggleRomanization() {
+            state.showRomanization = !state.showRomanization;
+            saveProgress();
+            updateRomanToggleUI();
+            renderVocab();
+            renderSpeaking();
+            showToast(state.showRomanization ? '已開啟羅馬拼音輔助' : '已隱藏羅馬拼音（進階挑戰模式）');
+        }
+
+        function updateRomanToggleUI() {
+            const indicator = document.getElementById('roman-indicator');
+            if (state.showRomanization) {
+                indicator.classList.remove('bg-stone-300');
+                indicator.classList.add('bg-emerald-500');
+            } else {
+                indicator.classList.remove('bg-emerald-500');
+                indicator.classList.add('bg-stone-300');
+            }
+        }
+
+        // 切換練習天數
+        function selectDay(index) {
+            state.currentDayIndex = index;
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            isPlayingAll = false;
+            initQuizData();
+            initDictationState();
+            renderAll();
+        }
+
+        // 切換分頁
+        function switchTab(tabName) {
+            state.currentTab = tabName;
+            const tabs = ['vocab', 'speaking', 'dictation', 'quiz', 'notebook'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const panel = document.getElementById(`panel-${t}`);
+                if (!btn || !panel) return;
+                if (t === tabName) {
+                    btn.classList.add('bg-ink', 'text-white', 'shadow-xs');
+                    btn.classList.remove('text-ink/65', 'hover:text-ink', 'hover:bg-stone-100');
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('bg-ink', 'text-white', 'shadow-xs');
+                    btn.classList.add('text-ink/65', 'hover:text-ink', 'hover:bg-stone-100');
+                    panel.classList.add('hidden');
+                }
+            });
+
+            if (tabName === 'dictation') {
+                renderDictation();
+            } else if (tabName === 'quiz') {
+                renderQuiz();
+            } else if (tabName === 'notebook') {
+                renderNotebook();
+            }
+        }
+
+        // 切換單字或口說的完成狀態
+        function toggleLearned(itemId, showFeedback = true) {
+            state.learnedItems[itemId] = !state.learnedItems[itemId];
+            saveProgress();
+            updateProgressUI();
+            renderVocab();
+            renderSpeaking();
+            renderDaySelector();
+            if (showFeedback && state.learnedItems[itemId]) {
+                showToast('太棒了！已記錄學習進度 ✨');
+            }
+        }
+
+        // 計算某天的完成百分比
+        function getDayProgress(lesson) {
+            const total = lesson.vocab.length + lesson.speaking.length;
+            let done = 0;
+            lesson.vocab.forEach(v => { if (state.learnedItems[v.id]) done++; });
+            lesson.speaking.forEach(s => { if (state.learnedItems[s.id]) done++; });
+            return { done, total, percent: Math.round((done / total) * 100) };
+        }
+
+        // 渲染頂部天數選擇列
+        function renderDaySelector() {
+            const container = document.getElementById('day-selector');
+            container.innerHTML = LESSONS.map((lesson, idx) => {
+                const isActive = idx === state.currentDayIndex;
+                const prog = getDayProgress(lesson);
+                const isCompleted = prog.percent === 100;
+                return `
+                    <button onclick="selectDay(${idx})" class="snap-start shrink-0 px-4 py-2.5 rounded-2xl text-left cursor-pointer flex items-center gap-2.5 ${
+                        isActive
+                            ? 'liquid-btn-ink text-white'
+                            : 'liquid-pill text-ink/85'
+                    }">
+                        <div>
+                            <div class="text-[11px] font-bold tracking-wider ${isActive ? 'text-coral-100' : 'text-coral-500'}">
+                                ${lesson.dayLabel} ${isCompleted ? '✓' : ''}
+                            </div>
+                            <div class="text-sm font-semibold whitespace-nowrap">${lesson.title}</div>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // 更新今日主題卡片與進度條
+        function updateProgressUI() {
+            const lesson = LESSONS[state.currentDayIndex];
+            const prog = getDayProgress(lesson);
+
+            document.getElementById('day-badge').textContent = lesson.dayLabel;
+            document.getElementById('day-korean-title').textContent = lesson.krTitle;
+            document.getElementById('day-title').textContent = lesson.title;
+            document.getElementById('day-desc').textContent = lesson.desc;
+            document.getElementById('vocab-count-badge').textContent = lesson.vocab.length;
+
+            document.getElementById('progress-percent').textContent = `${prog.percent}%`;
+            document.getElementById('progress-bar').style.width = `${prog.percent}%`;
+            document.getElementById('overall-progress-text').textContent = `今日進度 ${prog.done}/${prog.total} (${prog.percent}%)`;
+        }
+
+        // 渲染每日單字卡片
+        function renderVocab() {
+            const lesson = LESSONS[state.currentDayIndex];
+            const container = document.getElementById('vocab-list');
+
+            container.innerHTML = lesson.vocab.map(word => {
+                const isDone = !!state.learnedItems[word.id];
+                const safeKr = word.kr.replace(/'/g, "\\'");
+                const safeExKr = word.exKr.replace(/'/g, "\\'");
+
+                return `
+                    <article class="liquid-card ${isDone ? 'liquid-card-done' : ''} rounded-3xl p-5 flex flex-col justify-between gap-4">
+                        <div>
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h3 class="font-kr text-2xl font-bold text-ink tracking-tight">${word.kr}</h3>
+                                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white/70 border border-white/80 text-ink/65">${word.pos}</span>
+                                    </div>
+                                    ${state.showRomanization ? `<p class="text-xs font-semibold text-coral-500 mt-0.5">${word.roman}</p>` : ''}
+                                    <p class="text-base font-bold text-ink/85 mt-1.5">${word.zh}</p>
+                                </div>
+                                <!-- 標記已熟記 -->
+                                <button onclick="toggleLearned('${word.id}')" title="標記為已記住" class="shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition cursor-pointer ${
+                                    isDone
+                                        ? 'bg-emerald-500 border-emerald-400 text-white shadow-md shadow-emerald-500/30'
+                                        : 'liquid-pill text-ink/40 hover:text-emerald-600'
+                                }">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- 單字發音按鈕列 -->
+                            <div class="flex items-center gap-2 mt-3.5">
+                                <button onclick="speakKorean('${safeKr}', 0.95)" class="liquid-pill px-3.5 py-1.5 rounded-full text-coral-600 text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+                                    <span>🔊</span> <span>正常發音</span>
+                                </button>
+                                <button onclick="speakKorean('${safeKr}', 0.65)" class="liquid-pill px-3.5 py-1.5 rounded-full text-ink/75 text-xs font-semibold flex items-center gap-1 cursor-pointer">
+                                    <span>🐢</span> <span>慢速</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 例句區 -->
+                        <div class="liquid-inset rounded-2xl p-3 flex items-start justify-between gap-2">
+                            <div>
+                                <p class="font-kr text-sm font-semibold text-ink">${word.exKr}</p>
+                                <p class="text-xs text-ink/65 mt-0.5">${word.exZh}</p>
+                            </div>
+                            <button onclick="speakKorean('${safeExKr}', 0.9)" title="朗讀例句" class="liquid-pill shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-xs cursor-pointer">
+                                🔊
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // 渲染日常口說與文法解析卡片
+        function renderSpeaking() {
+            const lesson = LESSONS[state.currentDayIndex];
+            const container = document.getElementById('speaking-list');
+
+            container.innerHTML = lesson.speaking.map((item, idx) => {
+                const isDone = !!state.learnedItems[item.id];
+                const bestScore = state.speakingScores[item.id] || 0;
+                const safeKr = item.kr.replace(/'/g, "\\'");
+
+                let passBadgeHtml = `<span class="px-3 py-1.5 rounded-full text-xs font-bold bg-stone-100 text-ink/60 border border-stone-200">🔒 需評分達 ${SPEAKING_PASS_SCORE} 分通關</span>`;
+                if (isDone) {
+                    passBadgeHtml = `<span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500 text-white shadow-xs">✓ 評分通過${bestScore ? ` (${bestScore}分)` : ''}</span>`;
+                } else if (bestScore > 0) {
+                    passBadgeHtml = `<span class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">🔄 最高 ${bestScore} 分（需達 ${SPEAKING_PASS_SCORE} 分）</span>`;
+                }
+
+                const grammarHtml = item.grammar.map(g => {
+                    const exHtml = g.examples.map(ex => {
+                        const safeEx = ex.kr.replace(/'/g, "\\'");
+                        return `
+                            <div class="flex items-center justify-between gap-2 bg-white/65 px-3.5 py-2 rounded-xl border border-white/80">
+                                <div>
+                                    <span class="font-kr text-sm font-semibold text-ink">${ex.kr}</span>
+                                    <span class="text-xs text-ink/65 ml-2">${ex.zh}</span>
+                                </div>
+                                <button onclick="speakKorean('${safeEx}', 0.9)" class="liquid-pill text-xs w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shrink-0">🔊</button>
+                            </div>
+                        `;
+                    }).join('');
+
+                    return `
+                        <div class="liquid-inset rounded-2xl p-4 space-y-2.5">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="font-kr text-xs sm:text-sm font-bold px-3 py-1 rounded-full liquid-btn-ink text-white">${g.pattern}</span>
+                                <span class="text-sm font-bold text-coral-600">${g.meaning}</span>
+                            </div>
+                            <p class="text-sm text-ink/75 leading-relaxed">${g.explanation}</p>
+                            <div class="space-y-1.5 pt-1">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-ink/45">延伸例句</span>
+                                ${exHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                return `
+                    <article class="liquid-card ${isDone ? 'liquid-card-done' : ''} rounded-3xl p-5 sm:p-6 space-y-5">
+                        <!-- 情境標題 & 評分通關狀態 -->
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-full liquid-btn-coral text-white font-bold text-xs flex items-center justify-center">0${idx + 1}</span>
+                                <span class="text-xs font-bold text-ink/75 bg-white/65 border border-white/80 px-3 py-1 rounded-full">情境：${item.situation}</span>
+                            </div>
+                            ${passBadgeHtml}
+                        </div>
+
+                        <!-- 核心韓語句子 -->
+                        <div class="liquid-inset rounded-2xl p-5 space-y-2">
+                            <p class="font-kr text-2xl sm:text-3xl font-bold text-ink leading-snug">${item.kr}</p>
+                            ${state.showRomanization ? `<p class="text-sm font-semibold text-coral-500">${item.roman}</p>` : ''}
+                            <p class="text-base text-ink/80 font-semibold pt-1">${item.zh}</p>
+
+                            <!-- 聽與說互動按鈕列 -->
+                            <div class="flex flex-wrap items-center gap-2.5 pt-3">
+                                <button onclick="speakKorean('${safeKr}', 0.95)" class="liquid-btn-coral px-4 py-2.5 rounded-full text-white text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                    <span>🔊</span> <span>聆聽示範</span>
+                                </button>
+                                <button onclick="speakKorean('${safeKr}', 0.65)" class="liquid-pill px-4 py-2.5 rounded-full text-ink/80 text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                    <span>🐢</span> <span>慢速跟讀</span>
+                                </button>
+                                <button id="mic-btn-${item.id}" onclick="startSpeechCheck('${item.id}', '${safeKr}')" class="liquid-pill px-4 py-2.5 rounded-full text-rose-600 text-sm font-bold flex items-center gap-1.5 cursor-pointer">
+                                    <span>🎙️</span> <span>錄音並評分</span>
+                                </button>
+                            </div>
+
+                            <!-- 語音辨識回饋與錄音重播區塊 -->
+                            <div id="speech-result-${item.id}" class="hidden pt-2"></div>
+                        </div>
+
+                        <!-- 文法拆解區塊 -->
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="text-base">🧩</span>
+                                <h3 class="text-sm font-bold text-ink">這句話的重點文法</h3>
+                            </div>
+                            <div class="space-y-3">
+                                ${grammarHtml}
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            // 還原已評分或已錄音的結果卡片，避免切換分頁後重播按鈕消失
+            lesson.speaking.forEach(item => {
+                if (state.lastSpeechResults[item.id] || state.recordings[item.id]) {
+                    renderSpeechResultBox(item.id);
+                }
+            });
+        }
+
+        // ==========================================
+        // 4.5 聽寫練習模組 (免打字！點選方塊組句 & 小短文填空)
+        // ==========================================
+        function getCurrentDictationData() {
+            const lesson = LESSONS[state.currentDayIndex];
+            return DICTATION_DATA[lesson.id] || DICTATION_DATA.day1;
+        }
+
+        function initDictationState(keepMode = false) {
+            const data = getCurrentDictationData();
+            const mode = keepMode ? state.dictation.mode : 'sentence';
+            state.dictation.mode = mode;
+            state.dictation.sentenceIndex = 0;
+            loadDictationSentence(0);
+            loadDictationPassage();
+        }
+
+        function loadDictationSentence(idx) {
+            const data = getCurrentDictationData();
+            const target = data.sentences[idx] || data.sentences[0];
+            const shuffled = target.chunks
+                .map((text, i) => ({ text, origIdx: i, used: false }))
+                .sort(() => Math.random() - 0.5);
+
+            state.dictation.sentenceIndex = idx;
+            state.dictation.selectedChunks = [];
+            state.dictation.poolChunks = shuffled;
+            state.dictation.showHint = false;
+            state.dictation.checked = false;
+            state.dictation.isCorrect = false;
+        }
+
+        function loadDictationPassage() {
+            const data = getCurrentDictationData();
+            const p = data.passage;
+            const answers = p.segments.filter(s => typeof s.blankIndex === 'number').map(s => s.answer);
+            const allOptions = [...answers, ...(p.distractors || [])]
+                .map(text => ({ text, used: false }))
+                .sort(() => Math.random() - 0.5);
+
+            state.dictation.passageBlanks = answers.map(() => null);
+            state.dictation.passagePool = allOptions;
+            state.dictation.activeBlank = 0;
+            state.dictation.passageShowHint = false;
+            state.dictation.passageChecked = false;
+            state.dictation.passageCorrect = false;
+        }
+
+        function switchDictationMode(mode) {
+            state.dictation.mode = mode;
+            renderDictation();
+        }
+
+        // 關卡 1：點擊下方字塊加入句子
+        function pickSentenceChunk(poolIdx) {
+            if (state.dictation.checked && state.dictation.isCorrect) return;
+            const item = state.dictation.poolChunks[poolIdx];
+            if (!item || item.used) return;
+            item.used = true;
+            state.dictation.selectedChunks.push({ text: item.text, poolIdx });
+            state.dictation.checked = false;
+            renderDictation();
+        }
+
+        // 關卡 1：點擊已選字塊退回下方
+        function removeSentenceChunk(selIdx) {
+            if (state.dictation.checked && state.dictation.isCorrect) return;
+            const removed = state.dictation.selectedChunks.splice(selIdx, 1)[0];
+            if (removed && state.dictation.poolChunks[removed.poolIdx]) {
+                state.dictation.poolChunks[removed.poolIdx].used = false;
+            }
+            state.dictation.checked = false;
+            renderDictation();
+        }
+
+        function resetDictationSentence() {
+            loadDictationSentence(state.dictation.sentenceIndex);
+            renderDictation();
+        }
+
+        function toggleDictationHint() {
+            if (state.dictation.mode === 'sentence') {
+                state.dictation.showHint = !state.dictation.showHint;
+            } else {
+                state.dictation.passageShowHint = !state.dictation.passageShowHint;
+            }
+            renderDictation();
+        }
+
+        function checkDictationSentence() {
+            const data = getCurrentDictationData();
+            const target = data.sentences[state.dictation.sentenceIndex];
+            const userSentence = state.dictation.selectedChunks.map(c => c.text).join(' ');
+            const expectedSentence = target.chunks.join(' ');
+
+            state.dictation.checked = true;
+            state.dictation.isCorrect = (userSentence === expectedSentence);
+
+            if (state.dictation.isCorrect) {
+                state.learnedItems[target.id] = true;
+                saveProgress();
+                speakKorean(target.fullKr, 0.95);
+                showToast('完全正確！語感跟文法都抓到了 🎉');
+            } else {
+                showToast('順序還差一點點，再聽一次慢速試試看喔！');
+            }
+            renderDictation();
+        }
+
+        function selectDictationSentence(idx) {
+            loadDictationSentence(idx);
+            renderDictation();
+        }
+
+        // 關卡 2：點選短文空格
+        function focusPassageBlank(blankIdx) {
+            if (state.dictation.passageChecked && state.dictation.passageCorrect) return;
+            // 若該空格已有內容，點擊直接清除並設為選中
+            const existing = state.dictation.passageBlanks[blankIdx];
+            if (existing) {
+                if (state.dictation.passagePool[existing.poolIdx]) {
+                    state.dictation.passagePool[existing.poolIdx].used = false;
+                }
+                state.dictation.passageBlanks[blankIdx] = null;
+                state.dictation.passageChecked = false;
+            }
+            state.dictation.activeBlank = blankIdx;
+            renderDictation();
+        }
+
+        // 關卡 2：點選字塊填入目前選中的短文空格
+        function pickPassageWord(poolIdx) {
+            if (state.dictation.passageChecked && state.dictation.passageCorrect) return;
+            const item = state.dictation.passagePool[poolIdx];
+            if (!item || item.used) return;
+
+            let targetBlank = state.dictation.activeBlank;
+            // 如果目前選中的格子滿了，自動找下一個空格
+            if (state.dictation.passageBlanks[targetBlank] !== null) {
+                const nextEmpty = state.dictation.passageBlanks.findIndex(b => b === null);
+                if (nextEmpty === -1) {
+                    showToast('空格都填滿囉！點擊空格可以清空重選');
+                    return;
+                }
+                targetBlank = nextEmpty;
+            }
+
+            item.used = true;
+            state.dictation.passageBlanks[targetBlank] = { text: item.text, poolIdx };
+            state.dictation.passageChecked = false;
+
+            // 自動跳到下一個空白格
+            const nextEmpty = state.dictation.passageBlanks.findIndex(b => b === null);
+            if (nextEmpty !== -1) state.dictation.activeBlank = nextEmpty;
+
+            renderDictation();
+        }
+
+        function resetDictationPassage() {
+            loadDictationPassage();
+            renderDictation();
+        }
+
+        function checkDictationPassage() {
+            const data = getCurrentDictationData();
+            const p = data.passage;
+            const answers = p.segments.filter(s => typeof s.blankIndex === 'number').map(s => s.answer);
+
+            if (state.dictation.passageBlanks.some(b => b === null)) {
+                showToast('還有空格還沒填完喔！');
+                return;
+            }
+
+            const allRight = answers.every((ans, i) => state.dictation.passageBlanks[i]?.text === ans);
+            state.dictation.passageChecked = true;
+            state.dictation.passageCorrect = allRight;
+
+            if (allRight) {
+                state.learnedItems[p.id] = true;
+                saveProgress();
+                showToast('短文聽寫全部答對！超厲害 🏆');
+            } else {
+                showToast('有幾格不太對，點擊紅色的格子可以換別的字塊喔！');
+            }
+            renderDictation();
+        }
+
+        function renderDictation() {
+            const container = document.getElementById('dictation-container');
+            if (!container) return;
+
+            // 更新關卡按鈕樣式
+            const btnSent = document.getElementById('dict-mode-sentence');
+            const btnPass = document.getElementById('dict-mode-passage');
+            if (state.dictation.mode === 'sentence') {
+                btnSent.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer bg-coral-500 text-white shadow-xs flex items-center justify-center gap-1.5';
+                btnPass.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer text-ink/70 hover:bg-stone-100 flex items-center justify-center gap-1.5';
+                renderDictationSentenceUI(container);
+            } else {
+                btnPass.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer bg-coral-500 text-white shadow-xs flex items-center justify-center gap-1.5';
+                btnSent.className = 'py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition cursor-pointer text-ink/70 hover:bg-stone-100 flex items-center justify-center gap-1.5';
+                renderDictationPassageUI(container);
+            }
+        }
+
+        function renderDictationSentenceUI(container) {
+            const data = getCurrentDictationData();
+            const d = state.dictation;
+            const target = data.sentences[d.sentenceIndex];
+            const safeKr = target.fullKr.replace(/'/g, "\\'");
+            const isDone = !!state.learnedItems[target.id];
+
+            const switcherHtml = data.sentences.map((s, idx) => {
+                const active = idx === d.sentenceIndex;
+                const done = !!state.learnedItems[s.id];
+                return `
+                    <button onclick="selectDictationSentence(${idx})" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition cursor-pointer ${
+                        active ? 'bg-ink text-white' : 'liquid-pill text-ink/70'
+                    }">
+                        第 ${idx + 1} 句 ${done ? '✓' : ''}
+                    </button>
+                `;
+            }).join('');
+
+            const selectedHtml = d.selectedChunks.length === 0
+                ? `<span class="text-xs sm:text-sm text-ink/40 font-medium">請先點擊上方播放聽句子，再依序點擊下方韓文字塊填入...</span>`
+                : d.selectedChunks.map((c, idx) => `
+                    <button onclick="removeSentenceChunk(${idx})" class="px-3.5 py-2 rounded-xl font-kr text-sm sm:text-base font-bold transition cursor-pointer ${
+                        d.checked
+                            ? (d.isCorrect ? 'bg-emerald-500 text-white' : 'bg-rose-100 text-rose-700 border border-rose-300')
+                            : 'bg-ink text-white hover:bg-ink/85 shadow-xs'
+                    }">
+                        ${escapeHtml(c.text)}
+                    </button>
+                `).join('');
+
+            const poolHtml = d.poolChunks.map((c, idx) => `
+                <button onclick="pickSentenceChunk(${idx})" ${c.used ? 'disabled' : ''} class="px-3.5 py-2.5 rounded-xl font-kr text-sm sm:text-base font-bold transition ${
+                    c.used
+                        ? 'bg-stone-100 text-stone-300 border border-dashed border-stone-200 cursor-default'
+                        : 'liquid-pill text-ink hover:border-coral-400 hover:text-coral-600 cursor-pointer'
+                }">
+                    ${escapeHtml(c.text)}
+                </button>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="liquid-glass rounded-3xl p-5 sm:p-6 space-y-5">
+                    <!-- 頂部題號與狀態 -->
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <div class="flex items-center gap-2">
+                            ${switcherHtml}
+                        </div>
+                        <span class="text-xs font-bold ${isDone ? 'text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full' : 'text-ink/50'}">
+                            ${isDone ? '✓ 已完成過關' : '免打字・點字塊組句'}
+                        </span>
+                    </div>
+
+                    <!-- 題目播放區 -->
+                    <div class="liquid-inset rounded-2xl p-4 sm:p-5 space-y-3">
+                        <p class="text-xs font-bold text-coral-600">${target.title}</p>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button onclick="speakKorean('${safeKr}', 0.95)" class="liquid-btn-coral px-4 py-2.5 rounded-full text-white text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                <span>🔊</span> <span>聽原速句子</span>
+                            </button>
+                            <button onclick="speakKorean('${safeKr}', 0.65)" class="liquid-pill px-4 py-2.5 rounded-full text-ink/80 text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                <span>🐢</span> <span>慢速重聽</span>
+                            </button>
+                            <button onclick="toggleDictationHint()" class="liquid-pill px-3.5 py-2.5 rounded-full text-ink/70 text-xs sm:text-sm font-semibold cursor-pointer">
+                                ${d.showHint ? '🙈 隱藏中文提示' : '💡 看中文提示'}
+                            </button>
+                        </div>
+                        ${d.showHint ? `<p class="text-sm font-semibold text-ink/80 bg-white px-3.5 py-2.5 rounded-xl border border-stone-200">中文意思：${escapeHtml(target.zh)}</p>` : ''}
+                    </div>
+
+                    <!-- 作答區 (點入的方塊) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-ink/60 font-semibold px-1">
+                            <span>你的答案（點擊字塊可退回）：</span>
+                            <button onclick="resetDictationSentence()" class="text-coral-600 hover:underline cursor-pointer">↺ 清空重排</button>
+                        </div>
+                        <div class="min-h-[76px] p-3.5 rounded-2xl border-2 border-dashed ${
+                            d.checked ? (d.isCorrect ? 'border-emerald-400 bg-emerald-50/50' : 'border-rose-300 bg-rose-50/40') : 'border-stone-300 bg-stone-50/70'
+                        } flex flex-wrap items-center gap-2">
+                            ${selectedHtml}
+                        </div>
+                    </div>
+
+                    <!-- 可選字塊區 -->
+                    <div class="space-y-2">
+                        <p class="text-xs text-ink/60 font-semibold px-1">點擊下方韓文字塊填入：</p>
+                        <div class="flex flex-wrap gap-2.5">
+                            ${poolHtml}
+                        </div>
+                    </div>
+
+                    <!-- 檢查按鈕與解析 -->
+                    <div class="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-stone-200/80">
+                        <button onclick="checkDictationSentence()" ${d.selectedChunks.length === 0 ? 'disabled' : ''} class="liquid-btn-ink px-6 py-2.5 rounded-full text-white text-sm font-bold cursor-pointer disabled:opacity-40 disabled:cursor-default">
+                            ✓ 檢查答案
+                        </button>
+                        ${d.isCorrect && d.sentenceIndex + 1 < data.sentences.length ? `
+                            <button onclick="selectDictationSentence(${d.sentenceIndex + 1})" class="liquid-btn-coral px-5 py-2.5 rounded-full text-white text-sm font-bold cursor-pointer">
+                                下一句 →
+                            </button>
+                        ` : (d.isCorrect ? `
+                            <button onclick="switchDictationMode('passage')" class="liquid-btn-coral px-5 py-2.5 rounded-full text-white text-sm font-bold cursor-pointer">
+                                挑戰關卡 2：小短文 →
+                            </button>
+                        ` : '')}
+                    </div>
+
+                    ${d.checked && d.isCorrect ? `
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-1.5">
+                            <p class="text-xs font-bold text-emerald-700">💡 語感轉文法小解析</p>
+                            <p class="font-kr text-base font-bold text-ink">${escapeHtml(target.fullKr)}</p>
+                            <p class="text-xs text-ink/70">${escapeHtml(target.zh)}</p>
+                            <p class="text-xs sm:text-sm text-emerald-900/90 leading-relaxed pt-1">${escapeHtml(target.grammarTip)}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function renderDictationPassageUI(container) {
+            const data = getCurrentDictationData();
+            const d = state.dictation;
+            const p = data.passage;
+            const safeKr = p.fullKr.replace(/'/g, "\\'");
+            const isDone = !!state.learnedItems[p.id];
+
+            // 組合內嵌填空按鈕的短文
+            const passageHtml = p.segments.map(seg => {
+                if (typeof seg.blankIndex !== 'number') {
+                    return `<span>${escapeHtml(seg.text)}</span>`;
+                }
+                const idx = seg.blankIndex;
+                const filled = d.passageBlanks[idx];
+                const isActive = d.activeBlank === idx && !(d.passageChecked && d.passageCorrect);
+
+                let slotStyle = 'border-stone-300 bg-white text-ink/40';
+                if (d.passageChecked && filled) {
+                    slotStyle = filled.text === seg.answer
+                        ? 'border-emerald-500 bg-emerald-100 text-emerald-800'
+                        : 'border-rose-400 bg-rose-100 text-rose-700';
+                } else if (filled) {
+                    slotStyle = 'border-ink bg-ink text-white';
+                } else if (isActive) {
+                    slotStyle = 'border-coral-500 bg-coral-50 text-coral-600 ring-2 ring-coral-400/30';
+                }
+
+                return `
+                    <button onclick="focusPassageBlank(${idx})" class="inline-flex items-center justify-center align-baseline mx-1 my-1 px-3 py-1 rounded-xl border-2 font-kr text-sm sm:text-base font-bold transition cursor-pointer min-w-[76px] ${slotStyle}">
+                        ${filled ? escapeHtml(filled.text) : `空格 ${idx + 1}`}
+                    </button>
+                `;
+            }).join('');
+
+            const poolHtml = d.passagePool.map((item, idx) => `
+                <button onclick="pickPassageWord(${idx})" ${item.used ? 'disabled' : ''} class="px-3.5 py-2.5 rounded-xl font-kr text-sm sm:text-base font-bold transition ${
+                    item.used
+                        ? 'bg-stone-100 text-stone-300 border border-dashed border-stone-200 cursor-default'
+                        : 'liquid-pill text-ink hover:border-coral-400 hover:text-coral-600 cursor-pointer'
+                }">
+                    ${escapeHtml(item.text)}
+                </button>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="liquid-glass rounded-3xl p-5 sm:p-6 space-y-5">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <h3 class="text-sm sm:text-base font-bold text-ink flex items-center gap-1.5">
+                            <span>📖</span> <span>${escapeHtml(p.title)}</span>
+                        </h3>
+                        <span class="text-xs font-bold ${isDone ? 'text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full' : 'text-ink/50'}">
+                            ${isDone ? '✓ 短文已過關' : '進階聽力填空'}
+                        </span>
+                    </div>
+
+                    <!-- 整段短文播放控制列 -->
+                    <div class="liquid-inset rounded-2xl p-4 space-y-3">
+                        <p class="text-xs text-ink/65">先完整聽一遍短文，再點擊下方韓文字塊填入文章空格中（內含干擾選項喔！）。</p>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <button onclick="speakKorean('${safeKr}', 0.92)" class="liquid-btn-coral px-4 py-2.5 rounded-full text-white text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                <span>🔊</span> <span>聆聽整段短文</span>
+                            </button>
+                            <button onclick="speakKorean('${safeKr}', 0.7)" class="liquid-pill px-4 py-2.5 rounded-full text-ink/80 text-sm font-semibold flex items-center gap-1.5 cursor-pointer">
+                                <span>🐢</span> <span>慢速播放</span>
+                            </button>
+                            <button onclick="toggleDictationHint()" class="liquid-pill px-3.5 py-2.5 rounded-full text-ink/70 text-xs sm:text-sm font-semibold cursor-pointer">
+                                ${d.passageShowHint ? '🙈 隱藏中文翻譯' : '💡 看中文翻譯'}
+                            </button>
+                        </div>
+                        ${d.passageShowHint ? `<p class="text-xs sm:text-sm text-ink/80 bg-white px-3.5 py-2.5 rounded-xl border border-stone-200 leading-relaxed">${escapeHtml(p.zh)}</p>` : ''}
+                    </div>
+
+                    <!-- 短文填空本文 -->
+                    <div class="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200 font-kr text-base sm:text-lg font-medium text-ink leading-loose">
+                        ${passageHtml}
+                    </div>
+
+                    <!-- 字塊選項池 -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-ink/60 font-semibold px-1">
+                            <span>點擊字塊填入空格（點擊已填空格可清除）：</span>
+                            <button onclick="resetDictationPassage()" class="text-coral-600 hover:underline cursor-pointer">↺ 全部重填</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2.5">
+                            ${poolHtml}
+                        </div>
+                    </div>
+
+                    <!-- 檢查按鈕 -->
+                    <div class="pt-2 border-t border-stone-200/80 flex items-center justify-between">
+                        <button onclick="checkDictationPassage()" class="liquid-btn-ink px-6 py-2.5 rounded-full text-white text-sm font-bold cursor-pointer">
+                            ✓ 檢查短文答案
+                        </button>
+                    </div>
+
+                    ${d.passageChecked && d.passageCorrect ? `
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-2">
+                            <p class="text-xs font-bold text-emerald-700">💡 語感轉文法小解析</p>
+                            <p class="text-xs sm:text-sm text-ink/80 leading-relaxed">中文翻譯：${escapeHtml(p.zh)}</p>
+                            <p class="text-xs sm:text-sm text-emerald-900/90 leading-relaxed">${escapeHtml(p.grammarTip)}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 5. 單字小測驗模組
+        // ==========================================
+        function initQuizData() {
+            const lesson = LESSONS[state.currentDayIndex];
+            const shuffled = [...lesson.vocab].sort(() => Math.random() - 0.5);
+            const questions = shuffled.map(target => {
+                const distractors = lesson.vocab
+                    .filter(v => v.id !== target.id)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3);
+                const options = [target, ...distractors].sort(() => Math.random() - 0.5);
+                return { target, options };
+            });
+
+            state.quiz = {
+                questions,
+                currentIndex: 0,
+                score: 0,
+                answered: false,
+                selectedId: null,
+                finished: false
+            };
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+
+            const { questions, currentIndex, score, answered, selectedId, finished } = state.quiz;
+            if (!questions.length) {
+                initQuizData();
+                return renderQuiz();
+            }
+
+            if (finished) {
+                const accuracy = Math.round((score / questions.length) * 100);
+                let cheerMsg = '太厲害了！今天的單字都記得很熟囉！🎉';
+                if (accuracy < 60) cheerMsg = '沒關係，再多聽幾次發音就能記起來了！💪';
+                else if (accuracy < 100) cheerMsg = '表現很棒！離滿分只差一點點囉！✨';
+
+                container.innerHTML = `
+                    <div class="text-center py-6 space-y-4">
+                        <div class="text-5xl">${accuracy === 100 ? '🏆' : '🌟'}</div>
+                        <h3 class="text-xl font-bold text-ink">測驗完成！</h3>
+                        <p class="text-3xl font-bold text-coral-500">${score} / ${questions.length} <span class="text-base font-semibold text-ink/60">(${accuracy}%)</span></p>
+                        <p class="text-sm text-ink/75">${cheerMsg}</p>
+                        <div class="pt-3 flex justify-center gap-3">
+                            <button onclick="restartQuiz()" class="liquid-btn-coral px-5 py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer">
+                                🔄 再測驗一次
+                            </button>
+                            <button onclick="switchTab('vocab')" class="liquid-pill px-5 py-2.5 rounded-full text-ink/80 text-sm font-semibold cursor-pointer">
+                                返回複習單字
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = questions[currentIndex];
+            const safeKr = q.target.kr.replace(/'/g, "\\'");
+
+            const optionsHtml = q.options.map(opt => {
+                let btnClass = 'liquid-pill text-ink';
+                let icon = '';
+
+                if (answered) {
+                    if (opt.id === q.target.id) {
+                        btnClass = 'bg-emerald-500/20 border border-emerald-500 text-emerald-900 font-bold backdrop-blur-md';
+                        icon = '<span>✓</span>';
+                    } else if (opt.id === selectedId) {
+                        btnClass = 'bg-rose-500/20 border border-rose-400 text-rose-800 backdrop-blur-md';
+                        icon = '<span>✕</span>';
+                    } else {
+                        btnClass = 'bg-white/30 border border-white/40 text-ink/40 opacity-70';
+                    }
+                }
+
+                return `
+                    <button onclick="answerQuiz('${opt.id}')" ${answered ? 'disabled' : ''} class="w-full p-4 rounded-2xl text-left transition flex items-center justify-between ${btnClass} ${answered ? 'cursor-default' : 'cursor-pointer'}">
+                        <span class="text-sm sm:text-base font-medium">${opt.zh}</span>
+                        ${icon}
+                    </button>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between text-xs font-bold text-ink/60">
+                        <span>第 ${currentIndex + 1} / ${questions.length} 題</span>
+                        <span class="text-coral-600">目前得分：${score}</span>
+                    </div>
+
+                    <div class="text-center liquid-inset rounded-3xl p-6 space-y-2">
+                        <p class="text-xs font-medium text-ink/60">請選出這個韓文單字的中文意思</p>
+                        <h3 class="font-kr text-3xl sm:text-4xl font-bold text-ink">${q.target.kr}</h3>
+                        ${state.showRomanization ? `<p class="text-sm text-coral-500 font-semibold">${q.target.roman}</p>` : ''}
+                        <div class="pt-2">
+                            <button onclick="speakKorean('${safeKr}', 0.9)" class="liquid-pill px-4 py-1.5 rounded-full text-coral-600 text-xs font-bold cursor-pointer inline-flex items-center gap-1.5">
+                                <span>🔊</span> <span>聽發音</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        ${optionsHtml}
+                    </div>
+
+                    ${answered ? `
+                        <div class="flex justify-end pt-2">
+                            <button onclick="nextQuizQuestion()" class="liquid-btn-ink px-6 py-2.5 rounded-full text-white text-sm font-semibold cursor-pointer">
+                                ${currentIndex + 1 < questions.length ? '下一題 →' : '查看測驗結果 ✨'}
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function answerQuiz(optionId) {
+            if (state.quiz.answered) return;
+            const currentQ = state.quiz.questions[state.quiz.currentIndex];
+            state.quiz.answered = true;
+            state.quiz.selectedId = optionId;
+
+            if (optionId === currentQ.target.id) {
+                state.quiz.score++;
+                // 答對時自動朗讀加深記憶
+                speakKorean(currentQ.target.kr, 0.95);
+            }
+            renderQuiz();
+        }
+
+        function nextQuizQuestion() {
+            if (state.quiz.currentIndex + 1 < state.quiz.questions.length) {
+                state.quiz.currentIndex++;
+                state.quiz.answered = false;
+                state.quiz.selectedId = null;
+            } else {
+                state.quiz.finished = true;
+            }
+            renderQuiz();
+        }
+
+        function restartQuiz() {
+            initQuizData();
+            renderQuiz();
+        }
+
+        // ==========================================
+        // 6. 自訂韓語筆記本模組
+        // ==========================================
+        function addNote(event) {
+            event.preventDefault();
+            const krInput = document.getElementById('note-kr');
+            const zhInput = document.getElementById('note-zh');
+            const memoInput = document.getElementById('note-memo');
+
+            const kr = krInput.value.trim();
+            const zh = zhInput.value.trim();
+            const memo = memoInput.value.trim();
+
+            if (!kr || !zh) {
+                showToast('請填寫韓文內容與中文意思');
+                return;
+            }
+
+            const newNote = {
+                id: 'note_' + Date.now(),
+                kr,
+                zh,
+                memo,
+                createdAt: new Date().toLocaleDateString('zh-TW')
+            };
+
+            state.notes.unshift(newNote);
+            saveProgress();
+            updateNoteCountBadge();
+            renderNotebook();
+
+            krInput.value = '';
+            zhInput.value = '';
+            memoInput.value = '';
+            showToast('已儲存到你的韓語筆記本！📝');
+        }
+
+        function deleteNote(noteId) {
+            state.notes = state.notes.filter(n => n.id !== noteId);
+            saveProgress();
+            updateNoteCountBadge();
+            renderNotebook();
+            showToast('已刪除該則筆記');
+        }
+
+        function updateNoteCountBadge() {
+            const badge = document.getElementById('note-count-badge');
+            const listCount = document.getElementById('note-list-count');
+            if (badge) badge.textContent = state.notes.length;
+            if (listCount) listCount.textContent = `共 ${state.notes.length} 則`;
+        }
+
+        function renderNotebook() {
+            const container = document.getElementById('notebook-list');
+            if (!container) return;
+
+            updateNoteCountBadge();
+
+            if (state.notes.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 liquid-glass rounded-3xl p-8 text-center text-ink/55 space-y-1.5 border-dashed">
+                        <div class="text-3xl">📒</div>
+                        <p class="text-sm font-bold text-ink/75">目前還沒有自訂筆記</p>
+                        <p class="text-xs">試著在上方記下你最喜歡的韓文句子或追星常用語吧！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = state.notes.map(note => {
+                const safeKr = note.kr.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                return `
+                    <article class="liquid-card rounded-3xl p-5 flex flex-col justify-between gap-3.5">
+                        <div class="space-y-1.5">
+                            <div class="flex items-start justify-between gap-2">
+                                <h4 class="font-kr text-xl font-bold text-ink leading-snug">${escapeHtml(note.kr)}</h4>
+                                <button onclick="deleteNote('${note.id}')" title="刪除筆記" class="liquid-pill shrink-0 w-7 h-7 rounded-full text-xs text-ink/45 hover:text-rose-500 flex items-center justify-center cursor-pointer">
+                                    ✕
+                                </button>
+                            </div>
+                            <p class="text-sm font-bold text-coral-600">${escapeHtml(note.zh)}</p>
+                            ${note.memo ? `<p class="text-xs text-ink/75 liquid-inset rounded-2xl p-3 leading-relaxed mt-2">${escapeHtml(note.memo)}</p>` : ''}
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-white/50">
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="speakKorean('${safeKr}', 0.95)" class="liquid-pill px-3 py-1.5 rounded-full text-coral-600 text-xs font-bold flex items-center gap-1 cursor-pointer">
+                                    <span>🔊</span> <span>發音</span>
+                                </button>
+                                <button onclick="speakKorean('${safeKr}', 0.65)" class="liquid-pill px-3 py-1.5 rounded-full text-ink/70 text-xs font-semibold flex items-center gap-1 cursor-pointer">
+                                    <span>🐢</span> <span>慢速</span>
+                                </button>
+                            </div>
+                            <span class="text-[11px] font-medium text-ink/45">${note.createdAt || ''}</span>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // 6.5 學習進度報告匯出模組
+        // ==========================================
+        function generateLearningReport() {
+            let totalItems = 0;
+            let totalDone = 0;
+            const dayLines = [];
+            const unlearnedVocab = [];
+
+            LESSONS.forEach(lesson => {
+                const prog = getDayProgress(lesson);
+                totalItems += prog.total;
+                totalDone += prog.done;
+                const statusIcon = prog.percent === 100 ? '✅' : (prog.percent > 0 ? '🔄' : '⬜');
+                dayLines.push(`${statusIcon} ${lesson.dayLabel} ${lesson.title}：${prog.percent}% (${prog.done}/${prog.total})`);
+
+                // 收集已開始練習但尚未熟記的單字
+                if (prog.done > 0 && prog.done < prog.total) {
+                    lesson.vocab.forEach(v => {
+                        if (!state.learnedItems[v.id]) {
+                            unlearnedVocab.push(`${v.kr} (${v.zh})`);
+                        }
+                    });
+                }
+            });
+
+            const overallPercent = totalItems > 0 ? Math.round((totalDone / totalItems) * 100) : 0;
+            const todayStr = new Date().toLocaleDateString('zh-TW');
+
+            let report = `【하루 한국어 學習進度報告 - ${todayStr}】\n`;
+            report += `📊 總完成度：${overallPercent}% (${totalDone}/${totalItems} 項)\n\n`;
+            report += `📅 各日進度：\n${dayLines.join('\n')}\n`;
+
+            if (unlearnedVocab.length > 0) {
+                report += `\n📌 尚未熟記的單字（建議加強複習）：\n- ${unlearnedVocab.join('、')}\n`;
+            }
+
+            if (state.notes.length > 0) {
+                const noteLines = state.notes.map(n => `- ${n.kr}：${n.zh}${n.memo ? `（${n.memo}）` : ''}`);
+                report += `\n📝 我的自訂筆記（共 ${state.notes.length} 則）：\n${noteLines.join('\n')}\n`;
+            }
+
+            report += `\n👉 請根據我的學習進度與興趣，幫我規劃下一週（DAY ${LESSONS.length + 1}～${LESSONS.length + 7}）的新課程！`;
+            return report;
+        }
+
+        function openReportModal() {
+            const modal = document.getElementById('report-modal');
+            const textarea = document.getElementById('report-textarea');
+            if (!modal || !textarea) return;
+
+            textarea.value = generateLearningReport();
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeReportModal() {
+            const modal = document.getElementById('report-modal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyLearningReport() {
+            const textarea = document.getElementById('report-textarea');
+            if (!textarea) return;
+
+            try {
+                textarea.focus();
+                textarea.select();
+                textarea.setSelectionRange(0, textarea.value.length);
+                const copied = document.execCommand('copy');
+                if (copied) {
+                    showToast('已複製學習報告！直接貼進對話框給我就可以囉 🎉');
+                    closeReportModal();
+                } else {
+                    showToast('複製失敗，請手動全選上方文字複製');
+                }
+            } catch (err) {
+                showToast('複製發生錯誤，請手動選取文字複製');
+            }
+        }
+
+        // ==========================================
+        // 6.6 存檔碼 / 讀檔碼備份模組 (支援中韓文 UTF-8)
+        // ==========================================
+        function utf8ToBase64(str) {
+            const bytes = new TextEncoder().encode(str);
+            let binary = '';
+            bytes.forEach(b => { binary += String.fromCharCode(b); });
+            return btoa(binary);
+        }
+
+        function base64ToUtf8(b64) {
+            const binary = atob(b64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return new TextDecoder().decode(bytes);
+        }
+
+        // 產生精簡的存檔碼（使用連字號避免被 iPhone 備忘錄誤判為網址）
+        function generateSaveCode() {
+            const learnedIds = Object.keys(state.learnedItems).filter(k => state.learnedItems[k]);
+            const compactNotes = state.notes.map(n => [n.kr, n.zh, n.memo || '', n.createdAt || '']);
+            const payload = {
+                l: learnedIds,
+                n: compactNotes,
+                r: state.showRomanization ? 1 : 0
+            };
+            return 'HARU1-' + utf8ToBase64(JSON.stringify(payload));
+        }
+
+        function openBackupModal() {
+            const modal = document.getElementById('backup-modal');
+            const exportBox = document.getElementById('export-code-input');
+            const importBox = document.getElementById('import-code-input');
+            if (!modal || !exportBox) return;
+
+            exportBox.value = generateSaveCode();
+            if (importBox) importBox.value = '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeBackupModal() {
+            const modal = document.getElementById('backup-modal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copySaveCode() {
+            const exportBox = document.getElementById('export-code-input');
+            if (!exportBox) return;
+
+            try {
+                exportBox.focus();
+                exportBox.select();
+                exportBox.setSelectionRange(0, exportBox.value.length);
+                const copied = document.execCommand('copy');
+                if (copied) {
+                    showToast('已複製存檔碼！快貼到手機備忘錄保存起來吧 💾');
+                } else {
+                    showToast('複製失敗，請手動全選上方存檔碼複製');
+                }
+            } catch (err) {
+                showToast('複製發生錯誤，請手動全選文字複製');
+            }
+        }
+
+        function importSaveCode() {
+            const importBox = document.getElementById('import-code-input');
+            if (!importBox) return;
+
+            const raw = importBox.value.trim();
+            if (!raw) {
+                showToast('請先貼上存檔碼喔！');
+                return;
+            }
+
+            try {
+                // 相容大小寫（如 iPhone 備忘錄自動轉小寫的 haru1:）以及連字號 HARU1-
+                const prefixMatch = raw.match(/^haru1[\-:\uff1a]/i);
+                if (!prefixMatch) {
+                    throw new Error('無效的前綴');
+                }
+                const base64Part = raw.slice(prefixMatch[0].length).replace(/\s+/g, '');
+                const jsonStr = base64ToUtf8(base64Part);
+                const parsed = JSON.parse(jsonStr);
+
+                // 還原打勾進度
+                const restoredLearned = {};
+                if (Array.isArray(parsed.l)) {
+                    parsed.l.forEach(id => { restoredLearned[id] = true; });
+                }
+                state.learnedItems = restoredLearned;
+
+                // 還原自訂筆記
+                if (Array.isArray(parsed.n)) {
+                    state.notes = parsed.n.map((item, idx) => ({
+                        id: 'note_' + Date.now() + '_' + idx,
+                        kr: item[0] || '',
+                        zh: item[1] || '',
+                        memo: item[2] || '',
+                        createdAt: item[3] || ''
+                    }));
+                }
+
+                // 還原羅馬拼音設定
+                if (typeof parsed.r === 'number') {
+                    state.showRomanization = parsed.r === 1;
+                }
+
+                saveProgress();
+                renderAll();
+                closeBackupModal();
+                showToast('進度與筆記已成功還原！歡迎回來練習 🎉');
+            } catch (err) {
+                showToast('存檔碼格式不正確，請確認是否完整複製喔！');
+            }
+        }
+
+        // ==========================================
+        // 7. 初始化渲染
+        // ==========================================
+        function renderAll() {
+            updateRomanToggleUI();
+            renderDaySelector();
+            updateProgressUI();
+            renderVocab();
+            renderSpeaking();
+            updateNoteCountBadge();
+            if (state.currentTab === 'dictation') {
+                renderDictation();
+            } else if (state.currentTab === 'quiz') {
+                renderQuiz();
+            } else if (state.currentTab === 'notebook') {
+                renderNotebook();
+            }
+        }
+
+        // 啟動應用
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            initQuizData();
+            initDictationState();
+            renderAll();
+        });
+    </script>
+</body>
+</html>
